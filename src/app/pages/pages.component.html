@@ -1,0 +1,63 @@
+<mat-toolbar class="mat-elevation-z8">
+  <button mat-icon-button *ngIf="sidenav.mode === 'over'" (click)="sidenav.toggle()">
+      <mat-icon *ngIf="!sidenav.opened">
+          menu
+      </mat-icon>
+      <mat-icon *ngIf="sidenav.opened">
+          close
+      </mat-icon>
+  </button>
+  Escuela N° 220 “Agustín Yáñez”
+</mat-toolbar>
+
+<mat-sidenav-container>
+  <mat-sidenav #sidenav="matSidenav" class="mat-elevation-z8">
+
+      <img class="avatar mat-elevation-z8" src="https://i.pinimg.com/564x/83/a9/a1/83a9a144ab03763667b8d8aa381bb441.jpg" />
+
+      <h4 class="name">Nobre del Maestro</h4>
+      <p class="designation">Nombre de la escuela</p>
+
+      <mat-divider></mat-divider>
+
+      <button
+          mat-button
+          class="menu-button"
+          routerLink="/inicio">
+          <mat-icon>home</mat-icon>
+          <span>Inicio</span>
+      </button>
+      <button
+          routerLink="/profesores"
+          mat-button
+          class="menu-button">
+          <mat-icon>person</mat-icon>
+          <span>Profesores</span>
+      </button>
+      <button
+          mat-button
+          class="menu-button"
+          routerLink="/grupos">
+          <mat-icon>info</mat-icon>
+          <span>Grupos</span>
+      </button>
+
+      <mat-divider></mat-divider>
+
+      <button
+          mat-button class="menu-button"
+          routerLink="/login">
+          <mat-icon>close</mat-icon>
+          <span>Cerrar sesion</span>
+      </button>
+
+  </mat-sidenav>
+  <mat-sidenav-content>
+      <div class="container p-3">
+          <div class="container">
+            hola mundo
+            <router-outlet></router-outlet>
+          </div>
+      </div>
+  </mat-sidenav-content>
+</mat-sidenav-container>
