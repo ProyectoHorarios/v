@@ -12,6 +12,7 @@ import { MatSidenavModule } from '@angular/material/sidenav';
 import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
+import { GruposComponent } from './grupos/grupos.component';
 
 
 @NgModule({
@@ -19,7 +20,8 @@ import {MatDividerModule} from '@angular/material/divider';
     PagesComponent,
     InicioComponent,
     ReadexcelDirective,
-    ProfesoresComponent
+    ProfesoresComponent,
+    GruposComponent
   ],
   exports:[
     InicioComponent,
