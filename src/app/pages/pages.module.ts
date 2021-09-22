@@ -13,6 +13,7 @@ import { MatToolbarModule } from '@angular/material/toolbar';
 import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import { GruposComponent } from './grupos/grupos.component';
+import { ExportService } from '../services/export.service';
 
 
 @NgModule({
@@ -39,6 +40,9 @@ import { GruposComponent } from './grupos/grupos.component';
     MatIconModule,
     MatDividerModule
   ],
+  providers:[
+    ExportService
+  ]
 
 })
 export class PagesModule { }

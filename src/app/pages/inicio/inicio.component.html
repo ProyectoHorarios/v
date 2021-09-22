@@ -1,4 +1,136 @@
 <p>Inicio Cambio</p>
-<p>Camnio de rama</p>
+
+<!-- Toolbar -->
+<header>
+  <div class="lead text-center my-2" role="banner">
+    <span class="border border-primary rounded-sm p-2">
+      Generador de horarios escolares Versión 1.0
+    </span>
+  </div>
+</header>
+<br><br>
+
+<div class="container-fluid pt-3" role="main">
+  <div>
+    <ul class="list-group list-group-horizontal list-group-flush">
+      <li class="list-group-item border-0 pl-0">
+        <button class="btn btn-sm font-weight-bold btn-link" (click)="exportElmToExcel()">
+          <i class="fa fa-external-link"></i>
+          Export To Excel (Element Ref)
+        </button>
+      </li>
+      <li class="list-group-item border-0">
+        <button class="btn btn-sm font-weight-bold btn-link" (click)="exportToExcel()">
+          <i class="fa fa-external-link"></i>
+          Export to Excel Solo sirve este por el momento!!
+        </button>
+      </li>
+      <li class="list-group-item border-0">
+        <button class="btn btn-sm font-weight-bold btn-link" (click)="exportToCsv()">
+          <i class="fa fa-external-link"></i>
+          Export to CSV
+        </button>
+      </li>
+    </ul>
+  </div>
+  <br><br>
+  <div class="card">
+    <div class="card-header">
+      User Data
+    </div>
+    <div class="card-body table-responsive">
+      <table class="table table-sm" #userTable>
+        <thead class="thead-dark">
+          <tr>
+            <th scope="col">Profesor(a)</th>
+            <th scope="col">Lunes</th>
+            <th scope="col">Martes</th>
+            <th scope="col">Miercoles</th>
+            <th scope="col">Jueves</th>
+            <th scope="col">Viernes</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr *ngFor="let user of users">
+            <td scope="row">{{ user.id }}</td>
+            <td>
+              <table>
+                <tr>
+                  <td>{{ user.firstName.uno }}</td>
+                  <td>{{ user.firstName.dos }}</td>
+                  <td>{{ user.firstName.tres }}</td>
+                  <td>{{ user.firstName.cuatro }}</td>
+                  <td>{{ user.firstName.cinco}}</td>
+                  <td>{{ user.firstName.seis}}</td>
+                  <td>{{ user.firstName.siete}}</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td>{{ user.firstName.unoa }}</td>
+                  <td>{{ user.firstName.dosa }}</td>
+                  <td>{{ user.firstName.tresa }}</td>
+                  <td>{{ user.firstName.cuatroa }}</td>
+                  <td>{{ user.firstName.cincoa}}</td>
+                  <td>{{ user.firstName.seisa}}</td>
+                  <td>{{ user.firstName.sietea}}</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td>{{ user.firstName.unob }}</td>
+                  <td>{{ user.firstName.dosb }}</td>
+                  <td>{{ user.firstName.tresb }}</td>
+                  <td>{{ user.firstName.cuatrob }}</td>
+                  <td>{{ user.firstName.cincob}}</td>
+                  <td>{{ user.firstName.seisb}}</td>
+                  <td>{{ user.firstName.sieteb}}</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td>{{ user.firstName.unoc }}</td>
+                  <td>{{ user.firstName.dosc }}</td>
+                  <td>{{ user.firstName.tresc }}</td>
+                  <td>{{ user.firstName.cuatroc }}</td>
+                  <td>{{ user.firstName.cincoc}}</td>
+                  <td>{{ user.firstName.seisc}}</td>
+                  <td>{{ user.firstName.sietec}}</td>
+                </tr>
+              </table>
+            </td>
+            <td>
+              <table>
+                <tr>
+                  <td>{{ user.firstName.unod }}</td>
+                  <td>{{ user.firstName.dosd }}</td>
+                  <td>{{ user.firstName.tresd }}</td>
+                  <td>{{ user.firstName.cuatrod }}</td>
+                  <td>{{ user.firstName.cincod}}</td>
+                  <td>{{ user.firstName.seisd}}</td>
+                  <td>{{ user.firstName.sieted}}</td>
+                </tr>
+              </table>
+            </td>
+
+
+          </tr>
+          <tr>
+        </tbody>
+      </table>
+    </div>
+  </div>
+
+  <!-- Footer -->
+  <footer>
+  </footer>
+
+</div>
 
 
