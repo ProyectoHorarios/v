@@ -4,6 +4,7 @@ import { InicioComponent } from './inicio/inicio.component';
 import { ProfesoresComponent } from './profesores/profesores.component';
 import { PagesComponent } from './pages.component';
 import { GruposComponent } from './grupos/grupos.component';
+import { DialogoComponent } from './profesores/dialogo/dialogo.component';
 
 const routes: Routes = [
 
@@ -18,6 +19,12 @@ const routes: Routes = [
       },
       {
         path:'grupos', component:GruposComponent
+      },
+      {
+        path:'dialogo', component:DialogoComponent
+      },
+      {
+        path:'editar/:id', component:DialogoComponent
       }
       ]
   },

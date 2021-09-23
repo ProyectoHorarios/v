@@ -1,0 +1,11 @@
+.toast-custom {
+  background-color: purple;
+}
+.padre {
+  background-color: #fafafa;
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid rgb(255, 255, 255);
+  /* IMPORTANTE */
+  text-align: center;
+}

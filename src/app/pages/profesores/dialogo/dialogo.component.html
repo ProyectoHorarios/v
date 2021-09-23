@@ -1,0 +1,28 @@
+<header>
+  <div class="lead text-center my-2" role="banner">
+    <span class="border border-primary rounded-sm p-2">
+      {{titulo}}
+    </span>
+  </div>
+</header>
+<div class="padre" *ngIf="loaading">
+  <div class="spinner-border "role="status">
+    <span class="visually-hidden">Loading...</span>
+  </div>
+</div>
+
+<div *ngIf="!loaading" class="m-5 containser">
+  <form [formGroup]="registro" (ngSubmit)="reg()" autocomplete="off">
+    <div class="container">
+      <p>Coloque al profesor para añadirlo a la lista de horarios.</p>
+      <br>
+      <input  formControlName="nombre" class="form-control form-control-sm mt-1" type="text" placeholder="Nombre del Profesor" aria-label=".form-control-sm example">
+      <input  formControlName="horas" class="form-control form-control-sm mt-1" type="number" placeholder="Numero de Horas" aria-label=".form-control-sm example">
+      <input  formControlName="asignatura" class="form-control form-control-sm mt-1" type="text" placeholder="Asignaturas" aria-label=".form-control-sm example">
+      <br>
+      <button mat-button  type="submit" [disabled]="registro.invalid">Añadir</button>
+      <button mat-button routerLink="/profesores"  class="float-end">Cancelar</button>
+    </div>
+  </form>
+</div>
+

@@ -14,7 +14,12 @@ import {MatIconModule} from '@angular/material/icon';
 import {MatDividerModule} from '@angular/material/divider';
 import { GruposComponent } from './grupos/grupos.component';
 import { ExportService } from '../services/export.service';
-
+import {MatTableModule, _MatTableDataSource} from '@angular/material/table';
+import {MatPaginatorModule} from '@angular/material/paginator';
+import {MatInputModule} from '@angular/material/input';
+import { DialogoComponent } from './profesores/dialogo/dialogo.component';
+import {MatDialogModule} from '@angular/material/dialog';
+import { ReactiveFormsModule } from '@angular/forms';
 
 @NgModule({
   declarations: [
@@ -22,12 +27,14 @@ import { ExportService } from '../services/export.service';
     InicioComponent,
     ReadexcelDirective,
     ProfesoresComponent,
-    GruposComponent
+    GruposComponent,
+    DialogoComponent
   ],
   exports:[
     InicioComponent,
     PagesComponent,
-    ProfesoresComponent
+    ProfesoresComponent,
+    DialogoComponent
   ],
   imports: [
     CommonModule,
@@ -38,7 +45,14 @@ import { ExportService } from '../services/export.service';
     MatSidenavModule,
     MatToolbarModule,
     MatIconModule,
-    MatDividerModule
+    MatDividerModule,
+    MatTableModule,
+    MatPaginatorModule,
+    MatInputModule,
+    MatIconModule,
+    MatDialogModule,
+    ReactiveFormsModule
+
   ],
   providers:[
     ExportService

@@ -1,7 +1,86 @@
-<p>profesores works!</p>
+<header>
+  <div class="lead text-center my-2" role="banner">
+    <span class="border border-primary rounded-sm p-2">
+      Profesores
+    </span>
+  </div>
+</header>
 <input
   type="file"
+  class="mt-5"
   appReadexcel
   #readexcel="readexcel"
   (eventEmitter)="DataFromEventEmitter($event)"
 />
+<br><br>
+<button type="button" routerLink="/dialogo" class="btn btn-sm float-end text-white" style="background: #002b5c; ">Agregar Profesor</button>
+<br><br>
+<div class="text-center" *ngIf="profesores.length === 0">
+  <small >Aun no hay profesores en lista.</small>
+</div>
+
+<table *ngIf="profesores.length > 0" class="table table-striped mt-5">
+  <thead>
+    <tr>
+      <th scope="col">ID</th>
+      <th scope="col">Profesor</th>
+      <th scope="col">Asignatura</th>
+      <th scope="col">Horas</th>
+      <th scope="col">Acciones</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr *ngFor="let profesor of profesores; let i = index">
+      <th scope="row">{{i + 1}}</th>
+      <td>{{profesor.nombre}}</td>
+      <td>{{profesor.asignatura}}</td>
+      <td>{{profesor.horas}}</td>
+      <td>
+        <mat-icon class="text-danger" (click)="eliminarProofesor(profesor.id)"   style="cursor: pointer;" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
+        <mat-icon class="text-warning" style="cursor: pointer;" [routerLink]="['/editar/', profesor.id]" aria-hidden="false" aria-label="Example edit icon">edit</mat-icon>
+      </td>
+    </tr>
+  </tbody>
+</table>
+
+
+<!--
+
+<div class="mat-elevation-z8">
+  <table mat-table [dataSource]="dataSource">
+
+
+    <ng-container matColumnDef="position">
+      <th mat-header-cell *matHeaderCellDef> No. </th>
+      <td mat-cell *matCellDef="let element"> {{element.position}} </td>
+    </ng-container>
+
+
+    <ng-container  matColumnDef="name">
+      <th mat-header-cell *matHeaderCellDef> Profesor </th>
+      <td (click)="onClick()" mat-cell *matCellDef="let element"> {{element.profesor}} </td>
+    </ng-container>
+
+
+    <ng-container matColumnDef="weight">
+      <th mat-header-cell *matHeaderCellDef> Asignatura </th>
+      <td mat-cell *matCellDef="let element"> {{element.asignatura}} </td>
+    </ng-container>
+
+    <ng-container matColumnDef="symbol">
+      <th mat-header-cell *matHeaderCellDef> Horas Trabajadas </th>
+      <td mat-cell *matCellDef="let element"> {{element.horas}} </td>
+
+    </ng-container>
+
+    <tr mat-header-row *matHeaderRowDef="displayedColumns"></tr>
+    <tr mat-row *matRowDef="let row; columns: displayedColumns;"></tr>
+  </table>
+
+  <mat-paginator [pageSizeOptions]="[5, 10, 20]"
+                 showFirstLastButtons
+                 aria-label="Select page of periodic elements">
+  </mat-paginator>
+</div>
+
+-->
