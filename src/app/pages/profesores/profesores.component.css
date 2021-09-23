@@ -9,3 +9,12 @@ table {
 td, th {
   width: 25%;
 }
+
+.padre {
+  background-color: #fafafa;
+  margin: 1rem;
+  padding: 1rem;
+  border: 2px solid rgb(255, 255, 255);
+  /* IMPORTANTE */
+  text-align: center;
+}

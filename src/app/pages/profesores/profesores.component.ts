@@ -23,6 +23,7 @@ export interface PeriodicElement {
   styleUrls: ['./profesores.component.css']
 })
 export class ProfesoresComponent  implements AfterViewInit,OnInit  {
+  loaading=false;
 
   dialogoComponent!: MatDialogRef<DialogoComponent> ;
   profesores:any[]=[];
@@ -52,8 +53,36 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
 
   DataFromEventEmitter(data: any) {
-    console.log(data);
+
+    this.loaading = true;
+    for (let i = 0; i < data.length; i++) {
+      this.profesorService.agregarProfesor(data[i]).then(()=>{
+        if(i == (data.length - 1)){
+          this.toastr.success(` Se registro con exito, ${data.length} profesores con sus horas y asignaturas!`, 'Exito', {
+            timeOut: 4000,
+          });
+          this.loaading = false;
+        }
+    }).catch(err=>{
+      this.toastr.error(' Error!', 'Error', {
+          timeOut: 4000,
+        })
+        this.loaading = false;
+      });
   }
+
+    /*
+    this.profesorService.agregarProfesor(data).then(()=>{
+      this.toastr.success(' Se registro con exito al profesor con sus horas y asignaturas!', 'Exito', {
+        timeOut: 4000,
+      });
+    }).catch(err=>{
+      this.toastr.error(' Error al registrar al Profesor!', 'Error', {
+        timeOut: 4000,
+      });
+    })*/
+  }
+
   getProfesores(){
     this.profesorService.mostrarProfesores().subscribe(res=>{
       this.profesores=[];
@@ -65,11 +94,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
          ...element.payload.doc.data()
        })
       });
-      console.log(this.profesores);
-      console.log(ELEMENT_DATA);
-
-
-
     })
   }
 
@@ -78,7 +102,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
       this.toastr.success('Se elimino al profesor con exito!', 'Exito', {
         timeOut: 4000,
       });
-      console.log('Profesor borrado');
     }).catch(error =>{
       this.toastr.error('Error al eliminar al profesor', 'Error', {
         timeOut: 4000,

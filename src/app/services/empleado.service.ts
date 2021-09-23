@@ -10,8 +10,6 @@ export class ProfesorService {
   constructor(private firestore:AngularFirestore) { }
 
   agregarProfesor(profe:any):Promise<any>{
-    console.log(profe);
-
     return this.firestore.collection('profesores').add(profe);
   }
   mostrarProfesores():Observable<any>{
