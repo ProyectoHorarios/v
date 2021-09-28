@@ -5,6 +5,7 @@ import { Observable, Subscriber } from 'rxjs';
 import { ProfesorService } from '../../../services/empleado.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
+import { ApiInfoService } from '../../../services/api-info.service';
 
 @Component({
   selector: 'app-dialogo',
@@ -17,6 +18,10 @@ export class DialogoComponent implements OnInit {
   id:string|null;
   titulo='Agregar Profesor'
 
+  listaAsignatura = [];
+
+  selectedValue: any;
+
   public registro = this.formB.group({
     nombre: ['', [Validators.required]],
     horas: ['', [Validators.required]],
@@ -27,7 +32,8 @@ export class DialogoComponent implements OnInit {
               private profesorService:ProfesorService,
               private router:Router,
               private toastr: ToastrService,
-              private activateRoute:ActivatedRoute
+              private activateRoute:ActivatedRoute,
+              private apiInfoService:ApiInfoService
               //firestore: AngularFirestore
               ) {
                 //this.items = firestore.collection('items').valueChanges();
@@ -36,6 +42,11 @@ export class DialogoComponent implements OnInit {
 
   ngOnInit(): void {
     this.editarProfesor();
+
+    this.apiInfoService.getAgignaturas().subscribe(res=>{
+      console.log(res);
+      this.listaAsignatura = res
+    })
   }
   reg(){
     this.loaading = true;

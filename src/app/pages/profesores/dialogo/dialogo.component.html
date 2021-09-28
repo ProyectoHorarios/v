@@ -16,9 +16,39 @@
     <div class="container">
       <p>Coloque al profesor para añadirlo a la lista de horarios.</p>
       <br>
-      <input  formControlName="nombre" class="form-control form-control-sm mt-1" type="text" placeholder="Nombre del Profesor" aria-label=".form-control-sm example">
-      <input  formControlName="horas" class="form-control form-control-sm mt-1" type="number" placeholder="Numero de Horas" aria-label=".form-control-sm example">
-      <input  formControlName="asignatura" class="form-control form-control-sm mt-1" type="text" placeholder="Asignaturas" aria-label=".form-control-sm example">
+      <mat-form-field class="example-full-width m-1" appearance="fill" >
+        <mat-label>Nombre del Profesor</mat-label>
+        <input formControlName="nombre" type="text" matInput placeholder="Nombre del Profesor">
+        <mat-error *ngIf="registro.hasError('nombre') && !registro.hasError('required')">
+          El nombre es invalido
+        </mat-error>
+        <mat-error *ngIf="registro.hasError('required')">
+          Nombre es <strong>Requerido</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="example-full-width m-1" appearance="fill" >
+        <mat-label>Numero de Horas</mat-label>
+        <input formControlName="horas" type="number" matInput placeholder="Numero de Horas">
+        <mat-error *ngIf="registro.hasError('horas') && !registro.hasError('required')">
+          El nombre es invalido
+        </mat-error>
+        <mat-error *ngIf="registro.hasError('required')">
+          Nombre es <strong>Requerido</strong>
+        </mat-error>
+      </mat-form-field>
+
+
+
+      <mat-form-field class="m-2">
+        <mat-select formControlName="asignatura" placeholder="Asignaturas" name="operacion">
+          <mat-option *ngFor="let op of listaAsignatura" [value]="op">
+            {{op}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+
       <br>
       <button mat-button  type="submit" [disabled]="registro.invalid">Añadir</button>
       <button mat-button routerLink="/profesores"  class="float-end">Cancelar</button>
