@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { ApiInfoService } from '../../services/api-info.service';
 
 @Component({
   selector: 'app-grupos',
@@ -7,9 +8,16 @@ import { Component, OnInit } from '@angular/core';
 })
 export class GruposComponent implements OnInit {
 
-  constructor() { }
+  grupos = []
 
-  ngOnInit(): void {
+  constructor(private apiInfoService:ApiInfoService) { }
+
+  ngOnInit() {
+
+    this.apiInfoService.getGrupos().subscribe(res =>{
+      console.log(res);
+      this.grupos = res
+    })
   }
 
 }

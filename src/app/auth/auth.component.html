@@ -7,10 +7,11 @@
         </header>
 
       <!-- Signup Form -->
-        <form id="signup-form"  class="container">
-          <input type="email" name="email" id="email" placeholder="Correo electrónico" />
-          <input type="password" name="password" id="password" placeholder="Contraseña" />
-          <input type="submit" (click)="onClick()" value="Entrar" />
+        <form id="signup-form"  [formGroup]="login" (ngSubmit)="onClick()" autocomplete="off" class="container">
+
+          <input type="email" formControlName="email"  name="email" id="email" placeholder="Correo electrónico" />
+          <input type="password" formControlName="contrasena"  name="password" id="password" placeholder="Contraseña" />
+          <input type="submit" value="Entrar" />
           <br><br>
         </form>
           <p>¿Olvidaste tu contraseña? <a href="recuperarPassword.html">Haz clic aquí</a></p>

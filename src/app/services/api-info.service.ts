@@ -12,4 +12,8 @@ export class ApiInfoService {
   getAgignaturas():Observable<any>{
     return this.http.get('https://horarios-b18ea-default-rtdb.firebaseio.com/grupos.json')
   }
+
+  getGrupos():Observable<any>{
+    return this.http.get('https://horarios-b18ea-default-rtdb.firebaseio.com/g.json')
+  }
 }

@@ -1,6 +1,11 @@
 import { Injectable } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { Observable } from 'rxjs';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+//import { User } from "../services/user";
+//import { auth } from 'firebase/app';
+
+import { getAuth, signInWithEmailAndPassword } from "firebase/auth"
 
 @Injectable({
   providedIn: 'root'
@@ -23,6 +28,22 @@ export class ProfesorService {
   }
   actualizarProfesor(id:any, resp:any):Promise<any>{
     return this.firestore.collection('profesores').doc(id).update(resp);
+  }
+
+  mostrarAsignatiras():Observable<any>{
+    return this.firestore.collection('materiasLectivas').snapshotChanges();
+  }
+
+
+
+  login(){
+
+  }
+  logout(){
+
+  }
+  validarToken(){
+
   }
 
 }

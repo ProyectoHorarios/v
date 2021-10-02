@@ -27,6 +27,22 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   dialogoComponent!: MatDialogRef<DialogoComponent> ;
   profesores:any[]=[];
+  maestros:any[] = [];
+
+  totalEspanol:number = 0
+
+  CyEBase = 0;
+  artesBase = 0;
+  cienciasBase = 0;
+  educacionFBase = 0;
+  espanolBase = 0;
+  geografiaBase = 0;
+  historiaBase = 0;
+  inglesBase = 0;
+  matematicasBase = 0;
+  tecnologiaBase = 0;
+  tutoriaBase = 0;
+  vidaSaludableBase = 0;
 
 
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
@@ -41,6 +57,144 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
    }
    ngOnInit(){
      this.getProfesores()
+
+     this.profesorService.mostrarProfesores().subscribe(res=>{
+
+      let profes:any = []
+      let maestro:any = []
+       res.forEach((element:any) => {
+        profes.push({
+          id: element.payload.doc.id,
+          ...element.payload.doc.data()
+        })
+        maestro = profes
+
+
+       });
+       console.log(maestro,"mostrarProfesores");
+
+     })
+
+     this.profesorService.mostrarAsignatiras().subscribe(res=>{
+
+       let asig:any = []
+       let totalasig:any = []
+        res.forEach((element:any) => {
+          asig.push({
+           id: element.payload.doc.id,
+           ...element.payload.doc.data()
+         })
+         totalasig = asig
+        });
+        console.log(totalasig,"mostrarAsignatiras");
+
+        for (let i = 0; i < totalasig.length; i++) {
+
+          if(totalasig[i].id === "CyE"){
+            let contador = totalasig[i].htCyE
+            let CyE = 0
+            for (let i = 0; i < contador.length; i++) {
+              CyE += contador[i]
+            }
+            this.CyEBase = CyE;
+          }else if(totalasig[i].id === "artes"){
+            let cont = totalasig[i].htArtes
+            let artes = 0
+            for (let i = 0; i < cont.length; i++) {
+              artes += cont[i]
+            }
+            this.artesBase = artes;
+          }else if (totalasig[i].id === "ciencias") {
+            let cont = totalasig[i].htCiencias
+            let ciencias = 0
+            for (let i = 0; i < cont.length; i++) {
+              ciencias += cont[i]
+            }
+            this.cienciasBase = ciencias;
+          }else if (totalasig[i].id === "educacionF") {
+            let cont = totalasig[i].htEducacionF
+            let educacionF = 0
+            for (let i = 0; i < cont.length; i++) {
+              educacionF += cont[i]
+            }
+            this.educacionFBase = educacionF;
+          }else if (totalasig[i].id === "espanol") {
+            let cont = totalasig[i].htEspanol
+            let espanol = 0
+            for (let i = 0; i < cont.length; i++) {
+              espanol += cont[i]
+            }
+            this.espanolBase = espanol;
+          }else if (totalasig[i].id === "geografia") {
+            let cont = totalasig[i].htGeografia
+            let geografia = 0
+            for (let i = 0; i < cont.length; i++) {
+              geografia += cont[i]
+            }
+            this.geografiaBase = geografia;
+          }else if (totalasig[i].id === "historia") {
+            let cont = totalasig[i].htHistoria
+            let historia = 0
+            for (let i = 0; i < cont.length; i++) {
+              historia += cont[i]
+            }
+            this.historiaBase = historia;
+          }else if (totalasig[i].id === "ingles") {
+            let cont = totalasig[i].htIngles
+            let ingles = 0
+            for (let i = 0; i < cont.length; i++) {
+              ingles += cont[i]
+            }
+            this.inglesBase = ingles;
+          }else if (totalasig[i].id === "matematicas") {
+            let cont = totalasig[i].htMatematicas
+            let matematicas = 0
+            for (let i = 0; i < cont.length; i++) {
+              matematicas += cont[i]
+            }
+            this.matematicasBase = matematicas;
+          }else if (totalasig[i].id === "tecnologia") {
+            let cont = totalasig[i].htTecnologia
+            let tecnologia = 0
+            for (let i = 0; i < cont.length; i++) {
+              tecnologia += cont[i]
+            }
+            this.tecnologiaBase = tecnologia;
+          }else if (totalasig[i].id === "vidaSaludable") {
+            let cont = totalasig[i].htVidaSaludable
+            let vidaSaludable = 0
+            for (let i = 0; i < cont.length; i++) {
+              vidaSaludable += cont[i]
+            }
+            this.vidaSaludableBase = vidaSaludable;
+          }
+
+
+
+
+          console.log(totalasig[i], "----");
+
+
+
+        }
+
+
+        console.log(
+          this.CyEBase,
+          this.artesBase,
+          this.cienciasBase,
+          this.educacionFBase,
+          this.espanolBase,
+          this.geografiaBase,
+          this.historiaBase,
+          this.inglesBase,
+          this.matematicasBase,
+          this.tecnologiaBase,
+          this.vidaSaludableBase);
+
+
+     })
+
    }
    onClick(){
     console.log("onClick");
@@ -93,6 +247,10 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
          id: element.payload.doc.id,
          ...element.payload.doc.data()
        })
+       this.maestros = this.profesores
+       //console.log(this.maestros,"oooo");
+
+
       });
     })
   }

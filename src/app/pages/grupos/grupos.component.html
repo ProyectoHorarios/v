@@ -6,3 +6,58 @@
   </div>
 </header>
 <br><br>
+
+
+<form>
+  <select class="form-select" aria-label="Default select example">
+    <option selected >Selecciona a tu Grupo</option>
+    <option [value]="i+1" *ngFor="let grupo of grupos; let i = index">{{grupo}}</option>
+  </select>
+</form>
+
+
+
+<table class="table table-striped mt-5 table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">.</th>
+      <th scope="col">Lunes</th>
+      <th scope="col">Martes</th>
+      <th scope="col">Miercoles</th>
+      <th scope="col">Jueves</th>
+      <th scope="col">Viernes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr  >
+      <th scope="row">1</th>
+      <td>datos</td>
+      <td>datos</td>
+      <td>datos</td>
+      <td>datos</td>
+      <td>datos</td>
+    </tr>
+  </tbody>
+
+<div class="row">
+  <div class="col-lg-6 col-xl-6 col-sm-12 col-md-12">
+    <h5>Todos los grupos</h5>
+    <table class="table table-striped mt-5 table-bordered">
+      <thead>
+        <tr>
+          <th scope="col">ID</th>
+          <th scope="col">Grupos</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr  *ngFor="let grupo of grupos; let i = index">
+          <th scope="row">{{i+1}}</th>
+          <td>{{grupo}}</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+
+
