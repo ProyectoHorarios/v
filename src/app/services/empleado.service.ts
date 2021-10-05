@@ -34,6 +34,10 @@ export class ProfesorService {
     return this.firestore.collection('materiasLectivas').snapshotChanges();
   }
 
+  mostrarHorarios():Observable<any>{
+    return this.firestore.collection('grupos').snapshotChanges();
+  }
+
 
 
   login(){

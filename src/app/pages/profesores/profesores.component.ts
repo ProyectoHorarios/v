@@ -208,6 +208,8 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   DataFromEventEmitter(data: any) {
 
+    console.log(data);
+
     this.loaading = true;
     for (let i = 0; i < data.length; i++) {
       this.profesorService.agregarProfesor(data[i]).then(()=>{

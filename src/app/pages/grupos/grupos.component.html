@@ -29,13 +29,13 @@
     </tr>
   </thead>
   <tbody>
-    <tr  >
-      <th scope="row">1</th>
-      <td>datos</td>
-      <td>datos</td>
-      <td>datos</td>
-      <td>datos</td>
-      <td>datos</td>
+    <tr  *ngFor="let dato of datos">
+      <th scope="row">{{dato[0]}}</th>
+      <td>{{dato[1]}}</td>
+      <td>{{dato[2]}}</td>
+      <td>{{dato[3]}}</td>
+      <td>{{dato[4]}}</td>
+      <td>{{dato[5]}}</td>
     </tr>
   </tbody>
 
