@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
 import { ProfesorService } from 'src/app/services/empleado.service';
 import { ApiInfoService } from '../../services/api-info.service';
@@ -10,21 +10,26 @@ import { ApiInfoService } from '../../services/api-info.service';
 })
 export class GruposComponent implements OnInit {
 
+
+  @ViewChild('quantity') quantity?: ElementRef;
+
   grupos = []
+  tablaGrupos=[]
+  opcionSeleccionado: string  = '0';
+  verSeleccion: string        = '';
+  control:any;
 
   constructor(private apiInfoService:ApiInfoService,
               private profesorService:ProfesorService,
+
          ) { }
 
-  datos = [
-    {0:"1", 1:"E", 2:"EF", 3:"M", 4:"C", 5:"M"},
-    {0:"2", 1:"I", 2:"EF", 3:"M", 4:"C", 5:"M"},
-  ]
+  callType(value:any){
+    this.control = value
 
-
+  }
 
   ngOnInit() {
-
     this.profesorService.mostrarHorarios().subscribe(res=>{
 
       let profes:any = []
@@ -36,18 +41,15 @@ export class GruposComponent implements OnInit {
         })
         maestro = profes
 
-
        });
+       this.tablaGrupos = maestro
        console.log(maestro,"mostrarProfesores");
 
       })
-
-
     this.apiInfoService.getGrupos().subscribe(res =>{
       console.log(res);
       this.grupos = res
     })
-    console.log(this.datos);
 
   }
 
