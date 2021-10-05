@@ -25,7 +25,12 @@ export class DialogoComponent implements OnInit {
   public registro = this.formB.group({
     nombre: ['', [Validators.required,]],
     horas: ['', [Validators.required,Validators.max(40), Validators.min(0)]],
-    asignatura: ['',Validators.required]
+    asignatura: ['',Validators.required],
+    lunes: [[]],
+    martes: [[]],
+    miercoles: [[]],
+    jueves: [[]],
+    viernes: [[]]
   });
 
   constructor(private formB: FormBuilder,
@@ -77,24 +82,6 @@ export class DialogoComponent implements OnInit {
 
   agregarProfesorNuevo(){
     this.loaading = true;
-    console.log(this.registro.value);
-    let arry = {
-      1:{
-        nombre:this.registro.value.nombre,
-        horas:this.registro.value.horas,
-        asignatura:this.registro.value.asignatura,
-
-      },
-      2:{
-        nombre:this.registro.value.nombre,
-        horas:this.registro.value.horas,
-        asignatura:this.registro.value.asignatura,
-
-      }
-    }
-    console.log(arry);
-
-
 
     this.profesorService.agregarProfesor(this.registro.value).then(()=>{
       this.toastr.success(' Se registro con exito al profesor con sus horas y asignaturas!', 'Exito', {
