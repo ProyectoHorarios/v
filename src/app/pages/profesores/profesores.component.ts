@@ -3,10 +3,8 @@ import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource} from '@angular/material/table';
 import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
-import { DialogoComponent } from './dialogo/dialogo.component';
 import { ProfesorService } from '../../services/empleado.service';
 import { ToastrService } from 'ngx-toastr';
-import { InfoComponent } from './info/info.component';
 import { GruposComponent } from '../grupos/grupos.component';
 
 
