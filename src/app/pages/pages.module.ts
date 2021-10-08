@@ -21,6 +21,7 @@ import { DialogoComponent } from './profesores/dialogo/dialogo.component';
 import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
+import { InfoComponent } from './profesores/info/info.component';
 
 @NgModule({
   declarations: [
@@ -29,7 +30,8 @@ import {MatSelectModule} from '@angular/material/select';
     ReadexcelDirective,
     ProfesoresComponent,
     GruposComponent,
-    DialogoComponent
+    DialogoComponent,
+    InfoComponent
   ],
   exports:[
     InicioComponent,

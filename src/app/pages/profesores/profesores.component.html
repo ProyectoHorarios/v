@@ -46,6 +46,7 @@
       <td>
         <mat-icon class="text-danger" (click)="eliminarProofesor(profesor.id)"   style="cursor: pointer;" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
         <mat-icon class="text-warning" style="cursor: pointer;" [routerLink]="['/editar/', profesor.id]" aria-hidden="false" aria-label="Example edit icon">edit</mat-icon>
+        <mat-icon class="text-primary" style="cursor: pointer;" (click)="OpenModal()" aria-hidden="false" aria-label="Example edit icon">visibility</mat-icon>
       </td>
     </tr>
   </tbody>
@@ -69,7 +70,6 @@
 
   </div>
 </div>
-
 
 <!--
 

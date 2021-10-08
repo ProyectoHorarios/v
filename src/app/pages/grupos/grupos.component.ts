@@ -1,5 +1,6 @@
 import { Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { FormBuilder, Validators } from '@angular/forms';
+import { MatDialogRef } from '@angular/material/dialog';
 import { ProfesorService } from 'src/app/services/empleado.service';
 import { ApiInfoService } from '../../services/api-info.service';
 
@@ -19,9 +20,9 @@ export class GruposComponent implements OnInit {
   verSeleccion: string        = '';
   control:any;
 
-  constructor(private apiInfoService:ApiInfoService,
-              private profesorService:ProfesorService,
-
+  constructor(
+    private apiInfoService:ApiInfoService,
+    private profesorService:ProfesorService,
          ) { }
 
   callType(value:any){
@@ -53,4 +54,7 @@ export class GruposComponent implements OnInit {
 
   }
 
+  CloseDialog() {
+    //this._mdr.close(false)
+  }
 }

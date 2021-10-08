@@ -2,10 +2,12 @@ import { AfterViewInit, Component, ViewChild, OnInit } from '@angular/core';
 import { MatPaginator } from '@angular/material/paginator';
 import { MatSort } from '@angular/material/sort';
 import { MatTableDataSource} from '@angular/material/table';
-import { MatDialog, MatDialogRef } from '@angular/material/dialog';
+import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 import { DialogoComponent } from './dialogo/dialogo.component';
 import { ProfesorService } from '../../services/empleado.service';
 import { ToastrService } from 'ngx-toastr';
+import { InfoComponent } from './info/info.component';
+import { GruposComponent } from '../grupos/grupos.component';
 
 
 export interface PeriodicElement {
@@ -23,9 +25,24 @@ export interface PeriodicElement {
   styleUrls: ['./profesores.component.css']
 })
 export class ProfesoresComponent  implements AfterViewInit,OnInit  {
+
+  matDialogRef: MatDialogRef<GruposComponent> | undefined ;
+  name: string = "";
+  OpenModal() {
+    this.matDialogRef = this.matDialog.open(GruposComponent, {
+      data: { name: this.name },
+      disableClose: false
+    });
+
+    this.matDialogRef.afterClosed().subscribe(res => {
+      if ((res == true)) {
+        this.name = "";
+      }
+    });
+  }
+
   loaading=false;
 
-  dialogoComponent!: MatDialogRef<DialogoComponent> ;
   profesores:any[]=[];
   maestros:any[] = [];
 
@@ -52,7 +69,8 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   constructor(private dialog: MatDialog,
               private profesorService:ProfesorService,
-              private toastr: ToastrService,) {
+              private toastr: ToastrService,
+              private matDialog: MatDialog) {
 
    }
    ngOnInit(){
