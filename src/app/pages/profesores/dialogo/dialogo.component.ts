@@ -46,6 +46,7 @@ export class DialogoComponent implements OnInit {
     this.apiInfoService.getAgignaturas().subscribe(res=>{
       console.log(res);
       this.listaAsignatura = res
+
     })
   }
   reg(){

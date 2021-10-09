@@ -8,3 +8,9 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
   background-color: #691C32;
   color: rgb(231, 231, 231);
 }
+
+#toast-container > .toast-info {
+  background-image: none;
+  background-color: #6d2036;
+  color: rgb(231, 231, 231);
+}
