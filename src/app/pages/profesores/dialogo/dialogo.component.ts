@@ -26,6 +26,13 @@ export class DialogoComponent implements OnInit {
     nombre: ['', [Validators.required,]],
     horas: ['', [Validators.required,Validators.max(40), Validators.min(0)]],
     asignatura: ['',Validators.required],
+    materias:[{
+      lunes: ["","","","","","",""],
+      martes:["","","","","","",""],
+      miercoles:["","","","","","",""],
+      jueves:["","","","","","",""],
+      viernes:["","","","","","",""]
+    }]
   });
 
   constructor(private formB: FormBuilder,
@@ -60,6 +67,8 @@ export class DialogoComponent implements OnInit {
 
   editarProfesorDos(){
     this.loaading = true;
+
+    console.log(this.registro.value);
 
     this.profesorService.actualizarProfesor(this.id, this.registro.value).then(()=>{
       this.loaading = false;
@@ -105,6 +114,7 @@ export class DialogoComponent implements OnInit {
           nombre: res.payload.data()['nombre'],
           horas: res.payload.data()['horas'],
           asignatura: res.payload.data()['asignatura'],
+          materias: this.registro.value.materias
 
         })
         this.registro.value.nombre = res.payload.data()['nombre']
