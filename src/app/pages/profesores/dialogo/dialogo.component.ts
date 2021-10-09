@@ -26,6 +26,7 @@ export class DialogoComponent implements OnInit {
     nombre: ['', [Validators.required,]],
     horas: ['', [Validators.required,Validators.max(40), Validators.min(0)]],
     asignatura: ['',Validators.required],
+    asignaturaDos: [''],
     materias:[{
       lunes: ["","","","","","",""],
       martes:["","","","","","",""],

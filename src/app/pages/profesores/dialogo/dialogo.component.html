@@ -18,7 +18,7 @@
       <br>
       <mat-form-field class="example-full-width m-1" appearance="fill" >
         <mat-label>Nombre del Profesor</mat-label>
-        <input formControlName="nombre" type="text" matInput placeholder="Nombre del Profesor">
+        <input formControlName="nombre" type="text" matInput placeholder="Nombre del Profesor*">
         <mat-error *ngIf="registro.hasError('nombre') && !registro.hasError('required')">
           El nombre es invalido
         </mat-error>
@@ -29,7 +29,7 @@
 
       <mat-form-field class="example-full-width m-1" appearance="fill" >
         <mat-label>Numero de Horas</mat-label>
-        <input formControlName="horas" type="number" matInput placeholder="Numero de Horas">
+        <input formControlName="horas" type="number" matInput placeholder="Numero de Horas*">
         <mat-error *ngIf="registro.hasError('horas') && !registro.hasError('required')">
           El nombre es invalido
         </mat-error>
@@ -40,7 +40,15 @@
 
 
       <mat-form-field class="m-2">
-        <mat-select formControlName="asignatura" placeholder="Asignaturas" name="operacion">
+        <mat-select formControlName="asignatura" placeholder="Asignatura*" name="operacion">
+          <mat-option *ngFor="let op of listaAsignatura" [value]="op">
+            {{op}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="m-2">
+        <mat-select formControlName="asignaturaDos" placeholder="Asignatura Dos" name="asignaturaDos">
           <mat-option *ngFor="let op of listaAsignatura" [value]="op">
             {{op}}
           </mat-option>
