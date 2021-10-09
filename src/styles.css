@@ -5,6 +5,6 @@ body { margin: 0; font-family: Roboto, "Helvetica Neue", sans-serif; }
 
 #toast-container > .toast-success {
   background-image: none;
-  background-color: #004a9f;
+  background-color: #691C32;
   color: rgb(231, 231, 231);
 }
