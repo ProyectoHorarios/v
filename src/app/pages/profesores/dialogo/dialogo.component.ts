@@ -21,13 +21,16 @@ export class DialogoComponent implements OnInit {
   listaAsignatura = [];
 
   selectedValue: any;
+  preferencias = ['Temprano', 'Tarde', 'No Importa'];
 
 
   public registro = this.formB.group({
     nombre: ['', [Validators.required,]],
     horas: ['', [Validators.required,Validators.max(40), Validators.min(0)]],
+    cedula: [''],
     asignatura: ['',Validators.required],
     asignaturaDos: [''],
+    preferencia:['', [Validators.required]],
     materias:[{
       lunes: ["","","","","","",""],
       martes:["","","","","","",""],

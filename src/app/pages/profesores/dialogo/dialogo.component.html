@@ -38,6 +38,25 @@
         </mat-error>
       </mat-form-field>
 
+      <mat-form-field class="example-full-width m-1" appearance="fill" >
+        <mat-label>Cedula</mat-label>
+        <input formControlName="cedula" type="text" matInput placeholder="Cedula">
+        <mat-error *ngIf="registro.hasError('cedula') && !registro.hasError('required')">
+          Cedula es invalido
+        </mat-error>
+        <mat-error *ngIf="registro.hasError('required')">
+          Nombre es <strong>Requerido</strong>
+        </mat-error>
+      </mat-form-field>
+
+      <mat-form-field class="m-2">
+        <mat-select formControlName="preferencia" placeholder="Preferencia Horario" name="preferencia">
+          <mat-option *ngFor="let preferencia of preferencias" [value]="preferencia">
+            {{preferencia}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
 
       <mat-form-field class="m-2">
         <mat-select formControlName="asignatura" placeholder="Asignatura*" name="operacion">
