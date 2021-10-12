@@ -9,13 +9,11 @@ import { GruposComponent } from '../grupos/grupos.component';
 
 
 export interface PeriodicElement {
-  profesor: string;
+  name: string;
   position: number;
-  asignatura: number;
-  horas: string;
+  weight: number;
+  symbol: string;
 }
-
-
 
 @Component({
   selector: 'app-profesores',
@@ -59,9 +57,8 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   tutoriaBase = 0;
   vidaSaludableBase = 0;
 
-
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
-  dataSource = new MatTableDataSource<PeriodicElement>(ELEMENT_DATA);
+  dataSource = new MatTableDataSource(ELEMENT_DATA);
 
   @ViewChild(MatPaginator) paginator: any;
 
@@ -217,14 +214,17 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
    }
 
+   applyFilter(event: Event) {
+    const filterValue = (event.target as HTMLInputElement).value;
+    this.dataSource.filter = filterValue.trim().toLowerCase();
+  }
+
    ngAfterViewInit() {
     this.dataSource.paginator = this.paginator;
   }
 
 
   DataFromEventEmitter(data: any) {
-
-    console.log(data);
 
     this.loaading = true;
     for (let i = 0; i < data.length; i++) {
@@ -242,6 +242,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
         this.loaading = false;
       });
   }
+
 
     /*
     this.profesorService.agregarProfesor(data).then(()=>{
@@ -274,7 +275,10 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   }
 
   eliminarProofesor(id:string){
-    this.profesorService.eliminarProfesor(id).then(()=>{
+    console.log(id);
+
+
+    this.profesorService.eliminarProfesor('sssss').then(()=>{
       this.toastr.success('Se elimino al profesor con exito!', 'Exito', {
         timeOut: 4000,
       });
@@ -290,24 +294,14 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 }
 
 const ELEMENT_DATA: PeriodicElement[] = [
-  {position: 1, profesor: 'Hydrogen', asignatura: 1.0079, horas: 'H'},
-  {position: 2, profesor: 'Helium', asignatura: 4.0026, horas: 'He'},
-  {position: 3, profesor: 'Lithium', asignatura: 6.941, horas: 'Li'},
-  {position: 4, profesor: 'Beryllium', asignatura: 9.0122, horas: 'Be'},
-  {position: 5, profesor: 'Boron', asignatura: 10.811, horas: 'B'},
-  {position: 6, profesor: 'Carbon', asignatura: 12.0107, horas: 'C'},
-  {position: 7, profesor: 'Nitrogen', asignatura: 14.0067, horas: 'N'},
-  {position: 8, profesor: 'Oxygen', asignatura: 15.9994, horas: 'O'},
-  {position: 9, profesor: 'Fluorine', asignatura: 18.9984, horas: 'F'},
-  {position: 10, profesor: 'Neon', asignatura: 20.1797, horas: 'Ne'},
-  {position: 11, profesor: 'Sodium', asignatura: 22.9897, horas: 'Na'},
-  {position: 12, profesor: 'Magnesium', asignatura: 24.305, horas: 'Mg'},
-  {position: 13, profesor: 'Aluminum', asignatura: 26.9815, horas: 'Al'},
-  {position: 14, profesor: 'Silicon', asignatura: 28.0855, horas: 'Si'},
-  {position: 15, profesor: 'Phosphorus', asignatura: 30.9738, horas: 'P'},
-  {position: 16, profesor: 'Sulfur', asignatura: 32.065, horas: 'S'},
-  {position: 17, profesor: 'Chlorine', asignatura: 35.453, horas: 'Cl'},
-  {position: 18, profesor: 'Argon', asignatura: 39.948, horas: 'Ar'},
-  {position: 19, profesor: 'Potassium', asignatura: 39.0983, horas: 'K'},
-  {position: 20, profesor: 'Calcium', asignatura: 40.078, horas: 'Ca'},
+  {position: 1, name: 'Hydrogen', weight: 1.0079, symbol: 'H'},
+  {position: 2, name: 'Helium', weight: 4.0026, symbol: 'He'},
+  {position: 3, name: 'Lithium', weight: 6.941, symbol: 'Li'},
+  {position: 4, name: 'Beryllium', weight: 9.0122, symbol: 'Be'},
+  {position: 5, name: 'Boron', weight: 10.811, symbol: 'B'},
+  {position: 6, name: 'Carbon', weight: 12.0107, symbol: 'C'},
+  {position: 7, name: 'Nitrogen', weight: 14.0067, symbol: 'N'},
+  {position: 8, name: 'Oxygen', weight: 15.9994, symbol: 'O'},
+  {position: 9, name: 'Fluorine', weight: 18.9984, symbol: 'F'},
+  {position: 10, name: 'Neon', weight: 20.1797, symbol: 'Ne'},
 ];
