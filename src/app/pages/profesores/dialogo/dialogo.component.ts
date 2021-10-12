@@ -55,8 +55,6 @@ export class DialogoComponent implements OnInit {
               private activateRoute:ActivatedRoute,
               private apiInfoService:ApiInfoService,
               //firestore: AngularFirestore
-              public dialogRef: MatDialogRef<DialogoComponent>,
-              @Inject(MAT_DIALOG_DATA) public data: DialogData
 
               ) {
                 //this.items = firestore.collection('items').valueChanges();
@@ -65,9 +63,6 @@ export class DialogoComponent implements OnInit {
 
   ngOnInit(): void {
     this.editarProfesor();
-
-console.log(this.data, "dddd");
-
 
 
 
