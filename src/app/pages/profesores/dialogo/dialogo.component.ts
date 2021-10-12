@@ -113,15 +113,25 @@ export class DialogoComponent implements OnInit {
     if(this.id !== null){
       this.loaading = true
       this.titulo = 'Editar Profesor'
+      console.log(this.id);
+
       this.profesorService.traesIdProfesor(this.id).subscribe(res=>{
+
+        console.log(res.payload.data());
+
         this.loaading =false;
         this.registro.setValue({
           nombre: res.payload.data()['nombre'],
           horas: res.payload.data()['horas'],
+          cedula: res.payload.data()['cedula'],
           asignatura: res.payload.data()['asignatura'],
+          asignaturaDos: res.payload.data()['asignaturaDos'],
+          preferencia: res.payload.data()['preferencia'],
           materias: this.registro.value.materias
 
         })
+        console.log(this.registro.value);
+
         this.registro.value.nombre = res.payload.data()['nombre']
 
       })
