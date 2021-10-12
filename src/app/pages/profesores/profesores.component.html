@@ -43,10 +43,10 @@
     <tr *ngFor="let profesor of profesores; let i = index">
       <th scope="row">{{i + 1}}</th>
       <td>{{profesor.nombre}}</td>
-      <td>{{profesor.Cedula}}</td>
+      <td>{{profesor.cedula}}</td>
       <td>{{profesor.asignatura}}, {{profesor.asignaturaDos}}</td>
       <td>{{profesor.horas}}</td>
-      <td>{{profesor.Preferencia}}</td>
+      <td>{{profesor.preferencia}}</td>
       <td>
         <mat-icon class="text-danger" (click)="eliminarProofesor(profesor.id)"   style="cursor: pointer;" aria-hidden="false" aria-label="Example delete icon">delete</mat-icon>
         <mat-icon class="text-warning" style="cursor: pointer;" [routerLink]="['/editar/', profesor.id]" aria-hidden="false" aria-label="Example edit icon">edit</mat-icon>
