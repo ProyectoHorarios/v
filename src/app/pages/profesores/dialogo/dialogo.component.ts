@@ -22,6 +22,7 @@ export class DialogoComponent implements OnInit {
 
   selectedValue: any;
 
+
   public registro = this.formB.group({
     nombre: ['', [Validators.required,]],
     horas: ['', [Validators.required,Validators.max(40), Validators.min(0)]],
