@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Inject, OnInit } from '@angular/core';
 import { AngularFirestore } from '@angular/fire/compat/firestore';
 import { FormBuilder, Validators } from '@angular/forms';
 import { Observable, Subscriber } from 'rxjs';
@@ -6,12 +6,20 @@ import { ProfesorService } from '../../../services/empleado.service';
 import { ActivatedRoute, Router } from '@angular/router';
 import { ToastrService } from 'ngx-toastr';
 import { ApiInfoService } from '../../../services/api-info.service';
+import { MatDialogRef, MAT_DIALOG_DATA } from '@angular/material/dialog';
+
+export interface DialogData {
+  animal: string;
+  name: string;
+}
 
 @Component({
   selector: 'app-dialogo',
   templateUrl: './dialogo.component.html',
   styleUrls: ['./dialogo.component.css']
 })
+
+
 export class DialogoComponent implements OnInit {
   //items: Observable<any[]>;
   loaading=false;
@@ -45,8 +53,11 @@ export class DialogoComponent implements OnInit {
               private router:Router,
               private toastr: ToastrService,
               private activateRoute:ActivatedRoute,
-              private apiInfoService:ApiInfoService
+              private apiInfoService:ApiInfoService,
               //firestore: AngularFirestore
+              public dialogRef: MatDialogRef<DialogoComponent>,
+              @Inject(MAT_DIALOG_DATA) public data: DialogData
+
               ) {
                 //this.items = firestore.collection('items').valueChanges();
                 this.id = this.activateRoute.snapshot.paramMap.get('id')
@@ -54,6 +65,12 @@ export class DialogoComponent implements OnInit {
 
   ngOnInit(): void {
     this.editarProfesor();
+
+console.log(this.data, "dddd");
+
+
+
+
 
     this.apiInfoService.getAgignaturas().subscribe(res=>{
       console.log(res);

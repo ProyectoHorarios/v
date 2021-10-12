@@ -25,6 +25,9 @@ const routes: Routes = [
       },
       {
         path:'editar/:id', component:DialogoComponent
+      },
+      {
+        path:'vista/:id', component:GruposComponent
       }
       ]
   },

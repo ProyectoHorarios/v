@@ -23,10 +23,13 @@ export interface PeriodicElement {
 export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   matDialogRef: MatDialogRef<GruposComponent> | undefined ;
-  name: string = "";
-  OpenModal() {
+  animal: string='manuel'
+  name: string='lambo'
+  OpenModal(nam:any) {
+    console.log(nam);
+
     this.matDialogRef = this.matDialog.open(GruposComponent, {
-      data: { name: this.name },
+      data: {name: this.name, animal: this.animal},
       disableClose: false
     });
 
