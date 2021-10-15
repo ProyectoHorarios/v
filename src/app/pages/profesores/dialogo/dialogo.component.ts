@@ -64,9 +64,6 @@ export class DialogoComponent implements OnInit {
   ngOnInit(): void {
     this.editarProfesor();
 
-
-
-
     this.apiInfoService.getAgignaturas().subscribe(res=>{
       console.log(res);
       this.listaAsignatura = res

@@ -6,6 +6,7 @@ import { MatDialog, MatDialogRef, } from '@angular/material/dialog';
 import { ProfesorService } from '../../services/empleado.service';
 import { ToastrService } from 'ngx-toastr';
 import { GruposComponent } from '../grupos/grupos.component';
+import { HporprofesorComponent } from './hporprofesor/hporprofesor.component';
 
 
 export interface PeriodicElement {
@@ -22,14 +23,21 @@ export interface PeriodicElement {
 })
 export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
-  matDialogRef: MatDialogRef<GruposComponent> | undefined ;
+  matDialogRef: MatDialogRef<HporprofesorComponent> | undefined ;
   animal: string='manuel'
   name: string='lambo'
-  OpenModal(nam:any) {
-    console.log(nam);
 
-    this.matDialogRef = this.matDialog.open(GruposComponent, {
-      data: {name: this.name, animal: this.animal},
+  constructor(private dialog: MatDialog,
+    private profesorService:ProfesorService,
+    private toastr: ToastrService,
+    private matDialog: MatDialog) {
+
+}
+
+  OpenModal(nam:any) {
+
+    this.matDialogRef = this.matDialog.open(HporprofesorComponent, {
+      data: {name: nam, animal: this.animal},
       disableClose: false
     });
 
@@ -65,12 +73,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   @ViewChild(MatPaginator) paginator: any;
 
-  constructor(private dialog: MatDialog,
-              private profesorService:ProfesorService,
-              private toastr: ToastrService,
-              private matDialog: MatDialog) {
 
-   }
    ngOnInit(){
      this.getProfesores()
 

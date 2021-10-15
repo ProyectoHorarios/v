@@ -1,0 +1,103 @@
+<div class="container">
+  <p class="text-center">Grupo por profesor</p>
+  <div class="row">
+    <div class="col-6">
+      Profesor: {{infoProfe.nombre}}
+    </div>
+    <div class="col-6">
+      Horas: {{infoProfe.horas}}
+    </div>
+  </div>
+  <br>
+  <div class="row">
+    <div class="col-4">
+      Asignatura: {{infoProfe.asignatura}}
+    </div>
+    <div class="col-4">
+      Asignatura Dos: {{infoProfe.asignaturaDos}}
+    </div>
+    <div class="col-4">
+      Preferencia: {{infoProfe.preferencia}}
+    </div>
+  </div>
+
+</div>
+
+
+<table class="table table-striped mt-5 table-bordered">
+  <thead>
+    <tr>
+      <th scope="col">Horas</th>
+      <th scope="col">Lunes</th>
+      <th scope="col">Martes</th>
+      <th scope="col">Miercoles</th>
+      <th scope="col">Jueves</th>
+      <th scope="col">Viernes</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <th scope="row">7:30 - 8:20</th>
+      <td>{{infoProfe.materias.lunes[0]}}</td>
+      <td>{{infoProfe.materias.martes[0]}}</td>
+      <td>{{infoProfe.materias.miercoles[0]}}</td>
+      <td>{{infoProfe.materias.jueves[0]}}</td>
+      <td>{{infoProfe.materias.viernes[0]}}</td>
+    </tr>
+    <tr>
+      <th scope="row">8:20 - 9:10</th>
+      <td>{{infoProfe.materias.lunes[1]}}</td>
+      <td>{{infoProfe.materias.martes[1]}}</td>
+      <td>{{infoProfe.materias.miercoles[1]}}</td>
+      <td>{{infoProfe.materias.jueves[1]}}</td>
+      <td>{{infoProfe.materias.viernes[1]}}</td>
+    </tr>
+    <tr>
+      <th scope="row">9:10 - 10:00</th>
+      <td>{{infoProfe.materias.lunes[2]}}</td>
+      <td>{{infoProfe.materias.martes[2]}}</td>
+      <td>{{infoProfe.materias.miercoles[2]}}</td>
+      <td>{{infoProfe.materias.jueves[2]}}</td>
+      <td>{{infoProfe.materias.viernes[2]}}</td>
+    </tr><tr>
+      <th scope="row">10:00 - 10:50</th>
+      <td>{{infoProfe.materias.lunes[3]}}</td>
+      <td>{{infoProfe.materias.martes[3]}}</td>
+      <td>{{infoProfe.materias.miercoles[3]}}</td>
+      <td>{{infoProfe.materias.jueves[3]}}</td>
+      <td>{{infoProfe.materias.viernes[3]}}</td>
+    </tr><tr  >
+      <th scope="row">RECESO</th>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+      <td></td>
+    </tr>
+    <tr  >
+      <th scope="row">11:10 - 12:00</th>
+      <td>{{infoProfe.materias.lunes[4]}}</td>
+      <td>{{infoProfe.materias.martes[4]}}</td>
+      <td>{{infoProfe.materias.miercoles[4]}}</td>
+      <td>{{infoProfe.materias.jueves[4]}}</td>
+      <td>{{infoProfe.materias.viernes[4]}}</td>
+    </tr>
+    <tr  >
+      <th scope="row">12:00 - 12:50</th>
+      <td>{{infoProfe.materias.lunes[5]}}</td>
+      <td>{{infoProfe.materias.martes[5]}}</td>
+      <td>{{infoProfe.materias.miercoles[5]}}</td>
+      <td>{{infoProfe.materias.jueves[5]}}</td>
+      <td>{{infoProfe.materias.viernes[5]}}</td>
+    </tr>
+    <tr  >
+      <th scope="row">12:50 - 13:40</th>
+      <td>{{infoProfe.materias.lunes[6]}}</td>
+      <td>{{infoProfe.materias.martes[6]}}</td>
+      <td>{{infoProfe.materias.miercoles[6]}}</td>
+      <td>{{infoProfe.materias.jueves[6]}}</td>
+      <td>{{infoProfe.materias.viernes[6]}}</td>
+    </tr>
+
+  </tbody>
+</table>
