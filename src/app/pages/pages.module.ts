@@ -22,6 +22,7 @@ import {MatDialogModule} from '@angular/material/dialog';
 import { FormsModule, ReactiveFormsModule } from '@angular/forms';
 import {MatSelectModule} from '@angular/material/select';
 import { HporprofesorComponent } from './profesores/hporprofesor/hporprofesor.component';
+import { EliminarComponent } from './profesores/eliminar/eliminar.component';
 
 @NgModule({
   declarations: [
@@ -31,7 +32,8 @@ import { HporprofesorComponent } from './profesores/hporprofesor/hporprofesor.co
     ProfesoresComponent,
     GruposComponent,
     DialogoComponent,
-    HporprofesorComponent
+    HporprofesorComponent,
+    EliminarComponent
   ],
   exports:[
     InicioComponent,

@@ -7,6 +7,7 @@ import { ProfesorService } from '../../services/empleado.service';
 import { ToastrService } from 'ngx-toastr';
 import { GruposComponent } from '../grupos/grupos.component';
 import { HporprofesorComponent } from './hporprofesor/hporprofesor.component';
+import { EliminarComponent } from './eliminar/eliminar.component';
 
 
 export interface PeriodicElement {
@@ -24,6 +25,7 @@ export interface PeriodicElement {
 export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   matDialogRef: MatDialogRef<HporprofesorComponent> | undefined ;
+  matDialogRefE: MatDialogRef<EliminarComponent> | undefined ;
   animal: string='manuel'
   name: string='lambo'
 
@@ -280,20 +282,19 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
     })
   }
 
-  eliminarProofesor(id:string){
-    console.log(id);
 
+  eliminarProofesors(id:string){
 
-    this.profesorService.eliminarProfesor('sssss').then(()=>{
-      this.toastr.success('Se elimino al profesor con exito!', 'Exito', {
-        timeOut: 4000,
-      });
-    }).catch(error =>{
-      this.toastr.error('Error al eliminar al profesor', 'Error', {
-        timeOut: 4000,
-      });
+    this.matDialogRefE = this.matDialog.open(EliminarComponent, {
+      data: {name: id, animal: this.animal},
+      disableClose: false
+    });
 
-    })
+    this.matDialogRefE.afterClosed().subscribe(res => {
+      if ((res == true)) {
+        this.name = "";
+      }
+    });
   }
 
 

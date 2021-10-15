@@ -16,7 +16,13 @@ export interface DialogData {
 export class HporprofesorComponent implements OnInit {
 
 
-  infoProfe:any
+  infoProfe:any = []
+  lunes = [];
+  martes = [];
+  miercoles = [];
+  jueves = [];
+  viernes = [];
+
 
   constructor(public dialogRef: MatDialogRef<HporprofesorComponent>,
     @Inject(MAT_DIALOG_DATA) public data: DialogData,
@@ -27,14 +33,21 @@ export class HporprofesorComponent implements OnInit {
     console.log(id);
 
     this.infoProfe = []
+    this.lunes = []
+    this.martes = []
+    this.miercoles = [];
+    this.jueves = [];
+    this.viernes = [];
     this.profesorService.traesIdProfesor(id).subscribe(res=>{
       this.infoProfe = res.payload.data()
-      console.log(this.infoProfe);
+      this.lunes = this.infoProfe.materias.lunes;
+      this.martes = this.infoProfe.materias.martes;
+      this.miercoles = this.infoProfe.materias.miercoles;
+      this.jueves = this.infoProfe.materias.jueves;
+      this.viernes = this.infoProfe.materias.viernes;
     })
 
   }
-
-
 
   onNoClick(): void {
     this.dialogRef.close();
