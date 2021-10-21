@@ -64,6 +64,8 @@ export class DialogoComponent implements OnInit {
               }
 
   ngOnInit(): void {
+    localStorage.removeItem('ruta');
+    localStorage.setItem('ruta', '/dialogo');
     this.editarProfesor();
 
     this.apiInfoService.getAgignaturas().subscribe(res=>{
@@ -103,7 +105,6 @@ export class DialogoComponent implements OnInit {
 
   agregarProfesorNuevo(){
     this.loaading = true;
-
     this.profesorService.agregarProfesor(this.registro.value).then(()=>{
       this.toastr.success(' Se registro con exito al profesor con sus horas y asignaturas!', 'Exito', {
         timeOut: 4000,
