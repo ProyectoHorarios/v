@@ -31,6 +31,8 @@ export class GruposComponent implements OnInit {
   }
 
   ngOnInit() {
+    localStorage.removeItem('ruta');
+    localStorage.setItem('ruta', '/grupos');
     this.profesorService.mostrarHorarios().subscribe(res=>{
 
       let profes:any = []

@@ -30,8 +30,20 @@ export class AuthComponent implements OnInit {
 
     const contrasenia = this.login.value.contrasena
     const email = this.login.value.email
+    const conemail = {
+      emala:email,
+      conta:contrasenia
+    }
 
-    this.profesorService.login(email, contrasenia)
+
+    this.profesorService.login(email, contrasenia).then((res)=>{
+
+
+    }).catch(err=>{
+      console.log(err);
+
+    })
+
   }
 
 }

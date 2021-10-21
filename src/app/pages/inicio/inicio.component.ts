@@ -2,6 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { ExcelJson } from 'src/app/interfaces/excel-json.interface';
 import { User } from 'src/app/interfaces/user.interface';
 import { ExportService } from 'src/app/services/export.service';
+import { ProfesorService } from '../../services/empleado.service';
 
 @Component({
   selector: 'app-inicio',
@@ -11,9 +12,14 @@ import { ExportService } from 'src/app/services/export.service';
 export class InicioComponent implements OnInit {
 
   users!: any[];
-  constructor( private exportService: ExportService) { }
+  constructor( private exportService: ExportService,
+               private profesorService:ProfesorService) { }
 
-  ngOnInit(): void {
+  async ngOnInit(){
+    localStorage.removeItem('ruta');
+    localStorage.setItem('ruta', '/inicio');
+
+
     this.users = [
       {
         id: "Hernández Castillo Evelyn",

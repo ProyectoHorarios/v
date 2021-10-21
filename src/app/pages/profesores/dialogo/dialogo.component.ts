@@ -59,6 +59,8 @@ export class DialogoComponent implements OnInit {
               ) {
                 //this.items = firestore.collection('items').valueChanges();
                 this.id = this.activateRoute.snapshot.paramMap.get('id')
+                console.log(this.activateRoute);
+
               }
 
   ngOnInit(): void {

@@ -5,11 +5,13 @@ import { ProfesoresComponent } from './profesores/profesores.component';
 import { PagesComponent } from './pages.component';
 import { GruposComponent } from './grupos/grupos.component';
 import { DialogoComponent } from './profesores/dialogo/dialogo.component';
+import { MuroGuard } from '../muro.guard';
 
 const routes: Routes = [
 
   {
     path:'',component:PagesComponent,
+    canActivate:[MuroGuard],
     children:[
       {
         path:'inicio',component:InicioComponent
