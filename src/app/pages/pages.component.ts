@@ -3,6 +3,11 @@ import { Component, OnInit, ViewChild } from '@angular/core';
 import { BreakpointObserver } from '@angular/cdk/layout';
 import { MatSidenav } from '@angular/material/sidenav';
 import { delay } from 'rxjs/operators';
+import { AngularFireAuth } from '@angular/fire/compat/auth';
+import { Router } from '@angular/router';
+import { ProfesorService } from '../services/empleado.service';
+import { ProfesoresComponent } from './profesores/profesores.component';
+
 
 @Component({
   selector: 'app-pages',
@@ -13,7 +18,10 @@ export class PagesComponent {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
 
-  constructor(private observer: BreakpointObserver) { }
+  constructor(private observer: BreakpointObserver,
+              private afAuth: AngularFireAuth,
+              private router:Router,
+              private profesorService:ProfesorService) { }
 
   ngAfterViewInit() {
     this.observer
@@ -30,4 +38,9 @@ export class PagesComponent {
       });
   }
 
+  cerrar(){
+    this.profesorService.logout()
+  }
+
 }
+

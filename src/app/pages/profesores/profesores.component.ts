@@ -8,6 +8,7 @@ import { ToastrService } from 'ngx-toastr';
 import { GruposComponent } from '../grupos/grupos.component';
 import { HporprofesorComponent } from './hporprofesor/hporprofesor.component';
 import { EliminarComponent } from './eliminar/eliminar.component';
+import { ApiInfoService } from 'src/app/services/api-info.service';
 
 
 export interface PeriodicElement {
@@ -32,7 +33,8 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   constructor(private dialog: MatDialog,
     private profesorService:ProfesorService,
     private toastr: ToastrService,
-    private matDialog: MatDialog) {
+    private matDialog: MatDialog,
+    private apiInfoService:ApiInfoService) {
 
 }
 
@@ -70,6 +72,8 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   tutoriaBase = 0;
   vidaSaludableBase = 0;
 
+  listaAsignatura:any
+
   displayedColumns: string[] = ['position', 'name', 'weight', 'symbol'];
   dataSource = new MatTableDataSource(ELEMENT_DATA);
 
@@ -78,6 +82,12 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
    ngOnInit(){
      this.getProfesores()
+
+     this.apiInfoService.getAgignaturas().subscribe(res=>{
+      this.listaAsignatura = res
+
+
+    })
 
      this.profesorService.mostrarProfesores().subscribe(res=>{
 
@@ -92,7 +102,68 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
 
        });
+
+       console.log(this.listaAsignatura);
        console.log(maestro,"mostrarProfesores");
+
+       let espanol = [];
+       let matematicas = [];
+       let ciencias = [];
+       let historia = [];
+       let geografia = [];
+       let formciveti = [];
+       let ingles = [];
+       let musica = [];
+       let eficica = [];
+       let vidasaluda = [];
+       let tegnologia = [];
+       let titoria = [];
+
+       for (let i = 0; i < maestro.length; i++) {
+         if (maestro[i].asignatura === 'ESPAÑOL' || maestro[i].asignaturaDos === 'ESPAÑOL') {
+           espanol.push(maestro[i])
+         }else if (maestro[i].asignatura === 'MATEMATICAS' || maestro[i].asignaturaDos === 'MATEMATICAS') {
+          matematicas.push(maestro[i])
+        }else if (maestro[i].asignatura === 'CIENCIAS' || maestro[i].asignaturaDos === 'CIENCIAS') {
+          ciencias.push(maestro[i])
+        }else if (maestro[i].asignatura === 'HISTORIA' || maestro[i].asignaturaDos === 'HISTORIA') {
+          historia.push(maestro[i])
+        }else if (maestro[i].asignatura === 'GEOGRAFIA' || maestro[i].asignaturaDos === 'GEOGRAFIA') {
+          geografia.push(maestro[i])
+        }else if (maestro[i].asignatura === 'FORMACION CIVICA Y ETICA' || maestro[i].asignaturaDos === 'FORMACION CIVICA Y ETICA') {
+          formciveti.push(maestro[i])
+        }else if (maestro[i].asignatura === 'INGLES' || maestro[i].asignaturaDos === 'INGLES') {
+          ingles.push(maestro[i])
+        }else if (maestro[i].asignatura === 'MUSICA' || maestro[i].asignaturaDos === 'MUSICA') {
+          musica.push(maestro[i])
+        }else if (maestro[i].asignatura === 'EDUCACION FISICA' || maestro[i].asignaturaDos === 'EDUCACION FISICA') {
+          eficica.push(maestro[i])
+        }else if (maestro[i].asignatura === 'VIDA SALUDABLE' || maestro[i].asignaturaDos === 'VIDA SALUDABLE') {
+          vidasaluda.push(maestro[i])
+        }else if (maestro[i].asignatura === 'TECNOLOGIA' || maestro[i].asignaturaDos === 'TECNOLOGIA') {
+          tegnologia.push(maestro[i])
+        }else if (maestro[i].asignatura === 'TUTORIA' || maestro[i].asignaturaDos === 'TUTORIA') {
+          titoria.push(maestro[i])
+        }
+
+       }
+
+
+
+
+       console.log(espanol);
+       console.log(matematicas);
+       console.log(ciencias);
+       console.log(historia);
+       console.log(geografia);
+       console.log(formciveti);
+       console.log(ingles);
+       console.log(musica);
+       console.log(eficica);
+       console.log(vidasaluda);
+       console.log(tegnologia);
+       console.log(titoria);
+
 
      })
 
@@ -193,7 +264,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
 
 
-          console.log(totalasig[i], "----");
+          //console.log(totalasig[i], "----");
 
 
 

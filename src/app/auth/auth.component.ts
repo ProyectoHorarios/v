@@ -2,6 +2,8 @@ import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
 import { AngularFireAuthModule } from '@angular/fire/compat/auth';
 import { FormBuilder, Validators } from '@angular/forms';
+import { ProfesorService } from '../services/empleado.service';
+import { Subscriber } from 'rxjs';
 
 
 @Component({
@@ -19,17 +21,17 @@ export class AuthComponent implements OnInit {
 
   constructor(private router:Router,
               private formB: FormBuilder,
-              private auth:AngularFireAuthModule) { }
+              private auth:AngularFireAuthModule,
+              private profesorService:ProfesorService) { }
 
   ngOnInit(): void {
   }
   onClick(){
 
+    const contrasenia = this.login.value.contrasena
+    const email = this.login.value.email
 
-
-    console.log(this.login.value);
-
-    //this.router.navigate(['/inicio']);
+    this.profesorService.login(email, contrasenia)
   }
 
 }
