@@ -81,8 +81,11 @@ export class ProfesorService {
       })*/
 
       localStorage.setItem('token', tbd.user.uid);
-      const rutasT = localStorage.getItem('ruta')
+      let rutasT = localStorage.getItem('ruta')
       const rut = '/'+rutasT
+      if (rutasT === null) {
+        rutasT = '/inicio'
+      }
       console.log(rutasT);
 
       this.router.navigateByUrl(`${rutasT}`);
