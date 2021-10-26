@@ -323,4 +323,10 @@ export class InicioComponent implements OnInit {
     //this.exportService.exportToCsv(this.users, 'user-data', ['id', 'firstName', 'lastName', 'handle']);
   }
 
+  eliminarco(){
+    //this.profesorService.eliminar().then(()=>{console.log("bien");
+    this.profesorService.eliminar()
+    //})
+  }
+
 }

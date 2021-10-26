@@ -129,6 +129,13 @@ export class ProfesorService {
     return this.firestore.collection('personal').add(personal);
   }
 
+   eliminar(){
+    return this.firestore.collection("pb").get().subscribe(res=>{
+      res.forEach(element => {
+      element.ref.delete();
+    });})
+
+  }
 
 
 

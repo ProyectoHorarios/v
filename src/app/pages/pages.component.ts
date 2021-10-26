@@ -14,14 +14,21 @@ import { ProfesoresComponent } from './profesores/profesores.component';
   templateUrl: './pages.component.html',
   styleUrls: ['./pages.component.scss'],
 })
-export class PagesComponent {
+export class PagesComponent implements OnInit  {
   @ViewChild(MatSidenav)
   sidenav!: MatSidenav;
+  emailY:string | null = ''
 
   constructor(private observer: BreakpointObserver,
               private afAuth: AngularFireAuth,
               private router:Router,
               private profesorService:ProfesorService) { }
+
+
+              ngOnInit(){
+                const email:string | null = localStorage.getItem('email');
+                  this.emailY = email
+              }
 
   ngAfterViewInit() {
     this.observer

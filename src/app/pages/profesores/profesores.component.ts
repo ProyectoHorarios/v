@@ -29,12 +29,20 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   matDialogRefE: MatDialogRef<EliminarComponent> | undefined ;
   animal: string='manuel'
   name: string='lambo'
+  gupotTotales:any = []
+  horaspt:any
 
   constructor(private dialog: MatDialog,
     private profesorService:ProfesorService,
     private toastr: ToastrService,
     private matDialog: MatDialog,
     private apiInfoService:ApiInfoService) {
+
+      this.apiInfoService.getGrupos().subscribe(res=>{
+        console.log(res);
+        this.gupotTotales = res
+
+      })
 
 }
 
@@ -105,7 +113,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
        });
        console.log(totalasig,"mostrarAsignatiras");
        let totalasigH = totalasig.hEspanol
-
        for (let i = 0; i < totalasig.length; i++) {
 
          if(totalasig[i].id === "CyE"){
@@ -195,8 +202,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
 
        }
-
-
        console.log(
          this.CyEBase,
          this.artesBase,
@@ -211,94 +216,288 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
          this.vidaSaludableBase);
          this.totalasigy = totalasigH
 
+         this.profesorService.mostrarProfesores().subscribe(res=>{
+
+          let profes:any = []
+          let maestro:any = []
+           res.forEach((element:any) => {
+            profes.push({
+              id: element.payload.doc.id,
+              ...element.payload.doc.data()
+            })
+            maestro = profes
+
+
+           });
+
+           console.log(this.listaAsignatura);
+           console.log(maestro,"mostrarProfesores");
+
+           let espanol = [];
+           let matematicas = [];
+           let ciencias = [];
+           let historia = [];
+           let geografia = [];
+           let formciveti = [];
+           let ingles = [];
+           let musica = [];
+           let eficica = [];
+           let vidasaluda = [];
+           let tegnologia = [];
+           let titoria = [];
+
+           for (let i = 0; i < maestro.length; i++) {
+             if (maestro[i].asignatura === 'ESPAÑOL' || maestro[i].asignaturaDos === 'ESPAÑOL') {
+               espanol.push(maestro[i])
+             }else if (maestro[i].asignatura === 'MATEMATICAS' || maestro[i].asignaturaDos === 'MATEMATICAS') {
+              matematicas.push(maestro[i])
+            }else if (maestro[i].asignatura === 'CIENCIAS' || maestro[i].asignaturaDos === 'CIENCIAS') {
+              ciencias.push(maestro[i])
+            }else if (maestro[i].asignatura === 'HISTORIA' || maestro[i].asignaturaDos === 'HISTORIA') {
+              historia.push(maestro[i])
+            }else if (maestro[i].asignatura === 'GEOGRAFIA' || maestro[i].asignaturaDos === 'GEOGRAFIA') {
+              geografia.push(maestro[i])
+            }else if (maestro[i].asignatura === 'FORMACION CIVICA Y ETICA' || maestro[i].asignaturaDos === 'FORMACION CIVICA Y ETICA') {
+              formciveti.push(maestro[i])
+            }else if (maestro[i].asignatura === 'INGLES' || maestro[i].asignaturaDos === 'INGLES') {
+              ingles.push(maestro[i])
+            }else if (maestro[i].asignatura === 'MUSICA' || maestro[i].asignaturaDos === 'MUSICA') {
+              musica.push(maestro[i])
+            }else if (maestro[i].asignatura === 'EDUCACION FISICA' || maestro[i].asignaturaDos === 'EDUCACION FISICA') {
+              eficica.push(maestro[i])
+            }else if (maestro[i].asignatura === 'VIDA SALUDABLE' || maestro[i].asignaturaDos === 'VIDA SALUDABLE') {
+              vidasaluda.push(maestro[i])
+            }else if (maestro[i].asignatura === 'TECNOLOGIA' || maestro[i].asignaturaDos === 'TECNOLOGIA') {
+              tegnologia.push(maestro[i])
+            }else if (maestro[i].asignatura === 'TUTORIA' || maestro[i].asignaturaDos === 'TUTORIA') {
+              titoria.push(maestro[i])
+            }
+
+           }
+
+
+           let totaolGrupos:any = []
+           this.profesorService.mostrarHorarios().subscribe(res=>{
+            let profes:any = []
+            let maestro:any = []
+            res.forEach((element:any) => {
+              profes.push({
+                id: element.payload.doc.id,
+                ...element.payload.doc.data()
+              })
+              totaolGrupos = profes
+            });
+            console.log(totaolGrupos);
+
+           })
+
+
+           console.log(espanol);
+           //console.log(this.espanolBase);
+           console.log(totalasig);
+           console.log(this.gupotTotales);
+
+           let contador = 0
+           for (let i = 0; i < totalasig.length; i++) {
+            if (totalasig[i].id === 'espanol') {
+              console.log(totalasig[i]);
+              for (let t = 0; t < totalasig[i].htEspanol.length; t++) {
+                contador += totalasig[i].htEspanol[t]
+              }
+            }
+           }
+
+           let primero:any = [];
+           let segundo:any = [];
+           let tercero:any = [];
+           for (let i = 0; i < totalasig.length; i++) {
+             if (totalasig[i].id === 'espanol'){
+              for (let t = 0; t < totalasig[i].hEspanol.length; t++) {
+
+                primero = {
+                  1: totalasig[i].hEspanol[0]
+                }
+                segundo = {
+                  1: totalasig[i].hEspanol[1]
+                };
+                tercero = {
+                  1: totalasig[i].hEspanol[2]
+                };
+
+              }
+             }
+
+           }
+
+           console.log(primero,"primero");
+           console.log(segundo,"segundo");
+           console.log(tercero,"tercero");
+
+
+
+
+
+
+
+           console.log(contador,"contador");
+           let gp = {}
+           let gp1 = {}
+           let gp2 = {}
+
+           for (let i = 0; i < this.gupotTotales.length; i++) {
+              //console.log(this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1));
+              if (this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1) === "1") {
+                //console.log("1");
+
+                gp = {
+                  1:{
+                    1:this.gupotTotales[0],
+                    2:primero[1],
+                    3:'1'
+                  },
+                  2:{
+                    1:this.gupotTotales[1],
+                    2:primero[1],
+                    3:'2'
+                  },
+                  3:{
+                    1:this.gupotTotales[2],
+                    2:primero[1],
+                    3:'3'
+                  },
+                  4:{
+                    1:this.gupotTotales[3],
+                    2:primero[1],
+                    3:'4'
+                  },
+                  5:{
+                    1:this.gupotTotales[4],
+                    2:primero[1],
+                    3:'5'
+                  }
+                }
+                //console.log(this.gupotTotales[i]);
+              }else if (this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1) === "2") {
+                gp1  = {
+                  1:{
+                    1:this.gupotTotales[5],
+                    2:primero[1],
+                    3:'1'
+                  },
+                  2:{
+                    1:this.gupotTotales[6],
+                    2:primero[1],
+                    3:'2'
+                  },
+                  3:{
+                    1:this.gupotTotales[7],
+                    2:primero[1],
+                    3:'3'
+                  },
+                  4:{
+                    1:this.gupotTotales[8],
+                    2:primero[1],
+                    3:'4'
+                  },
+                  5:{
+                    1:this.gupotTotales[9],
+                    2:primero[1],
+                    3:'5'
+                  }
+                }
+                //console.log("2");
+                console.log(this.gupotTotales[i]);
+              }else {
+                gp2  = {
+                  1:{
+                    1:this.gupotTotales[10],
+                    2:primero[1],
+                    3:'1'
+                  },
+                  2:{
+                    1:this.gupotTotales[11],
+                    2:primero[1],
+                    3:'2'
+                  },
+                  3:{
+                    1:this.gupotTotales[12],
+                    2:primero[1],
+                    3:'3'
+                  },
+                  4:{
+                    1:this.gupotTotales[13],
+                    2:primero[1],
+                    3:'4'
+                  },
+                  5:{
+                    1:this.gupotTotales[14],
+                    2:primero[1],
+                    3:'5'
+                  }
+                }
+                //console.log("3");
+                //console.log(this.gupotTotales[i]);
+              }
+           }
+
+           console.log(gp);
+           console.log(gp1);
+           console.log(gp2);
+
+           let gpt = {
+             1:gp,
+             2:primero[1]
+           }
+
+           console.log(gpt);
+
+           let lodood = []
+           for (let i = 0; i < espanol.length; i++) {
+
+            let num1 =  espanol[i].horas/gpt[2]
+            let num2 = Math.trunc(espanol[i].horas/gpt[2])
+            let num3 = num1-num2
+             lodood.push({
+              id: espanol[i].id,
+              horas:espanol[i].horas/gpt[2],
+              trunc: Math.trunc(espanol[i].horas/gpt[2]),
+              deci: parseFloat(num3.toFixed(2))
+
+             })
+           }
+
+           console.log(lodood);
+
+
+
+
+
+
+
+
+           console.log(matematicas);
+           console.log(ciencias);
+           console.log(historia);
+           console.log(geografia);
+           console.log(formciveti);
+           console.log(ingles);
+           console.log(musica);
+           console.log(eficica);
+           console.log(vidasaluda);
+           console.log(tegnologia);
+           console.log(titoria);
+
+
+
+
+         })
+
 
 
     })
 
 
-     this.profesorService.mostrarProfesores().subscribe(res=>{
 
-      let profes:any = []
-      let maestro:any = []
-       res.forEach((element:any) => {
-        profes.push({
-          id: element.payload.doc.id,
-          ...element.payload.doc.data()
-        })
-        maestro = profes
-
-
-       });
-
-       console.log(this.listaAsignatura);
-       console.log(maestro,"mostrarProfesores");
-
-       let espanol = [];
-       let matematicas = [];
-       let ciencias = [];
-       let historia = [];
-       let geografia = [];
-       let formciveti = [];
-       let ingles = [];
-       let musica = [];
-       let eficica = [];
-       let vidasaluda = [];
-       let tegnologia = [];
-       let titoria = [];
-
-       for (let i = 0; i < maestro.length; i++) {
-         if (maestro[i].asignatura === 'ESPAÑOL' || maestro[i].asignaturaDos === 'ESPAÑOL') {
-           espanol.push(maestro[i])
-         }else if (maestro[i].asignatura === 'MATEMATICAS' || maestro[i].asignaturaDos === 'MATEMATICAS') {
-          matematicas.push(maestro[i])
-        }else if (maestro[i].asignatura === 'CIENCIAS' || maestro[i].asignaturaDos === 'CIENCIAS') {
-          ciencias.push(maestro[i])
-        }else if (maestro[i].asignatura === 'HISTORIA' || maestro[i].asignaturaDos === 'HISTORIA') {
-          historia.push(maestro[i])
-        }else if (maestro[i].asignatura === 'GEOGRAFIA' || maestro[i].asignaturaDos === 'GEOGRAFIA') {
-          geografia.push(maestro[i])
-        }else if (maestro[i].asignatura === 'FORMACION CIVICA Y ETICA' || maestro[i].asignaturaDos === 'FORMACION CIVICA Y ETICA') {
-          formciveti.push(maestro[i])
-        }else if (maestro[i].asignatura === 'INGLES' || maestro[i].asignaturaDos === 'INGLES') {
-          ingles.push(maestro[i])
-        }else if (maestro[i].asignatura === 'MUSICA' || maestro[i].asignaturaDos === 'MUSICA') {
-          musica.push(maestro[i])
-        }else if (maestro[i].asignatura === 'EDUCACION FISICA' || maestro[i].asignaturaDos === 'EDUCACION FISICA') {
-          eficica.push(maestro[i])
-        }else if (maestro[i].asignatura === 'VIDA SALUDABLE' || maestro[i].asignaturaDos === 'VIDA SALUDABLE') {
-          vidasaluda.push(maestro[i])
-        }else if (maestro[i].asignatura === 'TECNOLOGIA' || maestro[i].asignaturaDos === 'TECNOLOGIA') {
-          tegnologia.push(maestro[i])
-        }else if (maestro[i].asignatura === 'TUTORIA' || maestro[i].asignaturaDos === 'TUTORIA') {
-          titoria.push(maestro[i])
-        }
-
-       }
-
-
-
-
-       console.log(espanol);
-       console.log(this.espanolBase);
-       console.log(this.totalasigy );
-
-
-       console.log(matematicas);
-       console.log(ciencias);
-       console.log(historia);
-       console.log(geografia);
-       console.log(formciveti);
-       console.log(ingles);
-       console.log(musica);
-       console.log(eficica);
-       console.log(vidasaluda);
-       console.log(tegnologia);
-       console.log(titoria);
-
-
-
-
-     })
 
 
 
