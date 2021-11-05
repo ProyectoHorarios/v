@@ -22,6 +22,8 @@ export class HporprofesorComponent implements OnInit {
   miercoles = [];
   jueves = [];
   viernes = [];
+  tutoria = [];
+  servicio = [];
 
 
   constructor(public dialogRef: MatDialogRef<HporprofesorComponent>,
@@ -29,8 +31,20 @@ export class HporprofesorComponent implements OnInit {
     private profesorService:ProfesorService) { }
 
   ngOnInit(): void {
-    const id = this.data.name
-    console.log(id);
+    const id = this.data.name;
+    let arr:any = this.data.animal;
+     let info = []
+     for (let i = 0; i < arr.length; i++) {
+
+      if (id === arr[i]['id']) {
+        info = arr[i];
+      }
+    }
+    console.log(info);
+
+
+    this.tutoria  = info.tutoria;
+    this.servicio  = info.horasServicio;
 
     this.infoProfe = []
     this.lunes = []
@@ -38,7 +52,10 @@ export class HporprofesorComponent implements OnInit {
     this.miercoles = [];
     this.jueves = [];
     this.viernes = [];
+
     this.profesorService.traesIdProfesor(id).subscribe(res=>{
+      console.log(res.payload.data());
+
       this.infoProfe = res.payload.data()
       this.lunes = this.infoProfe.materias.lunes;
       this.martes = this.infoProfe.materias.martes;

@@ -1,0 +1,19 @@
+{
+  "hosting": {
+    "public": "dist/horario",
+    "ignore": [
+      "firebase.json",
+      "**/.*",
+      "**/node_modules/**"
+    ],
+    "rewrites":[ {
+      "source": "**",
+      "destination": "/index.html"
+    }
+  ]
+
+  }
+
+
+}
+

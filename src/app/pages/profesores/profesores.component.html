@@ -32,7 +32,7 @@
     <tr>
       <th scope="col">ID</th>
       <th scope="col">Profesor</th>
-      <th scope="col">Cedula</th>
+      <th scope="col">Clave presupuestaria</th>
       <th scope="col">Asignatura</th>
       <th scope="col">Horas</th>
       <th scope="col">Preferencia Horaria</th>
@@ -43,8 +43,8 @@
     <tr *ngFor="let profesor of profesores; let i = index">
       <th scope="row">{{i + 1}}</th>
       <td>{{profesor.nombre}}</td>
-      <td>{{profesor.cedula}}</td>
-      <td>{{profesor.asignatura}}, {{profesor.asignaturaDos}}</td>
+      <td>{{profesor.Clave}}</td>
+      <td>{{profesor.asignatura}} {{profesor.asignaturaDos}} {{profesor.asignaturaTres}}</td>
       <td>{{profesor.horas}}</td>
       <td>{{profesor.preferencia}}</td>
       <td>

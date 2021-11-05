@@ -39,10 +39,10 @@
       </mat-form-field>
 
       <mat-form-field class="example-full-width m-1" appearance="fill" >
-        <mat-label>Cedula</mat-label>
-        <input formControlName="cedula" type="text" matInput placeholder="Cedula">
-        <mat-error *ngIf="registro.hasError('cedula') && !registro.hasError('required')">
-          Cedula es invalido
+        <mat-label>Clave</mat-label>
+        <input formControlName="Clave" type="text" matInput placeholder="Clave">
+        <mat-error *ngIf="registro.hasError('Clave') && !registro.hasError('required')">
+          Clave es invalido
         </mat-error>
         <mat-error *ngIf="registro.hasError('required')">
           Nombre es <strong>Requerido</strong>
@@ -68,6 +68,14 @@
 
       <mat-form-field class="m-2">
         <mat-select formControlName="asignaturaDos" placeholder="Asignatura Dos" name="asignaturaDos">
+          <mat-option *ngFor="let op of listaAsignatura" [value]="op">
+            {{op}}
+          </mat-option>
+        </mat-select>
+      </mat-form-field>
+
+      <mat-form-field class="m-2">
+        <mat-select formControlName="asignaturaTres" placeholder="Asignatura Tres" name="asignaturaTres">
           <mat-option *ngFor="let op of listaAsignatura" [value]="op">
             {{op}}
           </mat-option>

@@ -35,9 +35,10 @@ export class DialogoComponent implements OnInit {
   public registro = this.formB.group({
     nombre: ['', [Validators.required,]],
     horas: ['', [Validators.required,Validators.max(40), Validators.min(0)]],
-    cedula: [''],
+    Clave: [''],
     asignatura: ['',Validators.required],
     asignaturaDos: [''],
+    asignaturaTres: [''],
     preferencia:['', [Validators.required]],
     materias:[{
       lunes: ["","","","","","",""],
@@ -64,6 +65,8 @@ export class DialogoComponent implements OnInit {
               }
 
   ngOnInit(): void {
+
+
     localStorage.removeItem('ruta');
     localStorage.setItem('ruta', '/dialogo');
     this.editarProfesor();
@@ -135,9 +138,10 @@ export class DialogoComponent implements OnInit {
         this.registro.setValue({
           nombre: res.payload.data()['nombre'],
           horas: res.payload.data()['horas'],
-          cedula: res.payload.data()['cedula'],
+          Clave: res.payload.data()['Clave'],
           asignatura: res.payload.data()['asignatura'],
           asignaturaDos: res.payload.data()['asignaturaDos'],
+          asignaturaTres: res.payload.data()['asignaturaTres'],
           preferencia: res.payload.data()['preferencia'],
           materias: this.registro.value.materias
 

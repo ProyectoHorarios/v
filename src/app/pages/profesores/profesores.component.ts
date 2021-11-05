@@ -31,6 +31,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   name: string='lambo'
   gupotTotales:any = []
   horaspt:any
+  tutoriaDes:any = []
 
   constructor(private dialog: MatDialog,
     private profesorService:ProfesorService,
@@ -49,7 +50,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   OpenModal(nam:any) {
 
     this.matDialogRef = this.matDialog.open(HporprofesorComponent, {
-      data: {name: nam, animal: this.animal},
+      data: {name: nam, animal: this.tutoriaDes},
       disableClose: false
     });
 
@@ -95,7 +96,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
      this.getProfesores()
 
      this.apiInfoService.getAgignaturas().subscribe(res=>{
-      this.listaAsignatura = res
+     this.listaAsignatura = res
 
 
     })
@@ -329,9 +330,9 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
            }
 
-           console.log(primero,"primero");
-           console.log(segundo,"segundo");
-           console.log(tercero,"tercero");
+           //console.log(primero,"primero");
+           //console.log(segundo,"segundo");
+           //console.log(tercero,"tercero");
 
 
 
@@ -339,117 +340,117 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
 
 
-           console.log(contador,"contador");
-           let gp = {}
-           let gp1 = {}
-           let gp2 = {}
+           //console.log(contador,"contador");
+           let gp:any = []
+           let gp1:any = []
+           let gp2:any = []
 
            for (let i = 0; i < this.gupotTotales.length; i++) {
               //console.log(this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1));
               if (this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1) === "1") {
                 //console.log("1");
 
-                gp = {
-                  1:{
+                gp = [
+                  {
                     1:this.gupotTotales[0],
                     2:primero[1],
                     3:'1'
                   },
-                  2:{
+                  {
                     1:this.gupotTotales[1],
                     2:primero[1],
                     3:'2'
                   },
-                  3:{
+                  {
                     1:this.gupotTotales[2],
                     2:primero[1],
                     3:'3'
                   },
-                  4:{
+                  {
                     1:this.gupotTotales[3],
                     2:primero[1],
                     3:'4'
                   },
-                  5:{
+                  {
                     1:this.gupotTotales[4],
                     2:primero[1],
                     3:'5'
                   }
-                }
+                ]
                 //console.log(this.gupotTotales[i]);
               }else if (this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1) === "2") {
-                gp1  = {
-                  1:{
+                gp1  = [
+                  {
                     1:this.gupotTotales[5],
                     2:primero[1],
-                    3:'1'
+                    3:'6'
                   },
-                  2:{
+                  {
                     1:this.gupotTotales[6],
                     2:primero[1],
-                    3:'2'
+                    3:'7'
                   },
-                  3:{
+                  {
                     1:this.gupotTotales[7],
                     2:primero[1],
-                    3:'3'
+                    3:'8'
                   },
-                  4:{
+                  {
                     1:this.gupotTotales[8],
                     2:primero[1],
-                    3:'4'
+                    3:'9'
                   },
-                  5:{
+                  {
                     1:this.gupotTotales[9],
                     2:primero[1],
-                    3:'5'
+                    3:'10'
                   }
-                }
+                ]
                 //console.log("2");
-                console.log(this.gupotTotales[i]);
+               // console.log(this.gupotTotales[i]);
               }else {
-                gp2  = {
-                  1:{
+                gp2  = [
+                  {
                     1:this.gupotTotales[10],
                     2:primero[1],
-                    3:'1'
+                    3:'11'
                   },
-                  2:{
+                  {
                     1:this.gupotTotales[11],
                     2:primero[1],
-                    3:'2'
+                    3:'12'
                   },
-                  3:{
+                  {
                     1:this.gupotTotales[12],
                     2:primero[1],
-                    3:'3'
+                    3:'13'
                   },
-                  4:{
+                  {
                     1:this.gupotTotales[13],
                     2:primero[1],
-                    3:'4'
+                    3:'14'
                   },
-                  5:{
+                  {
                     1:this.gupotTotales[14],
                     2:primero[1],
-                    3:'5'
+                    3:'15'
                   }
-                }
+                ]
                 //console.log("3");
                 //console.log(this.gupotTotales[i]);
               }
            }
 
-           console.log(gp);
-           console.log(gp1);
-           console.log(gp2);
+
+           //console.log(gp1);
+           //console.log(gp2);
 
            let gpt = {
              1:gp,
              2:primero[1]
            }
 
-           console.log(gpt);
+           //console.log(gpt[2]);
 
            let lodood = []
            for (let i = 0; i < espanol.length; i++) {
@@ -457,16 +458,112 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
             let num1 =  espanol[i].horas/gpt[2]
             let num2 = Math.trunc(espanol[i].horas/gpt[2])
             let num3 = num1-num2
-             lodood.push({
-              id: espanol[i].id,
-              horas:espanol[i].horas/gpt[2],
-              trunc: Math.trunc(espanol[i].horas/gpt[2]),
-              deci: parseFloat(num3.toFixed(2))
+            if ( parseFloat(num3.toFixed(2)) *  gpt[2] ===0) {
+              lodood.push({
+                id: espanol[i].id,
+                horas:espanol[i].horas/gpt[2],
+                trunc: Math.trunc(espanol[i].horas/gpt[2]),
+                deci: parseFloat(num3.toFixed(2)) *  gpt[2],
+                horasServicio: 0,
+                tutoria: 0
 
-             })
+               })
+
+            }else{
+              lodood.push({
+                id: espanol[i].id,
+                horas:espanol[i].horas/gpt[2],
+                trunc: Math.trunc(espanol[i].horas/gpt[2]),
+                deci: parseFloat(num3.toFixed(2)) *  gpt[2],
+                horasServicio: (parseFloat(num3.toFixed(2)) *  gpt[2])-1,
+                tutoria: ((parseFloat(num3.toFixed(2)) *  gpt[2])+1)-(parseFloat(num3.toFixed(2)) *  gpt[2])
+
+               })
+
+            }
+
            }
 
+
+
+           let arr = []
+           for (let i = 0; i < lodood.length; i++) {
+             //console.log("ffff");
+             let num = 0
+
+             //espanol[i].id
+             if (lodood[i].id == espanol[i].id) {
+              num = lodood[i].trunc
+               //console.log(num);
+
+               for (let t = 0; t < num; t++) {
+
+                arr.push({
+                  a: t+1,
+                  id: espanol[i].id
+                })
+
+               }
+
+
+             }
+
+           }
+           //console.log(arr);
+
+           let ton = []
+           for (let i = 0; i < arr.length; i++) {
+
+            ton.push({
+                ab : arr[i].a,
+                abc : arr[i].id,
+                abcd : i + 1
+
+            })
+
+           }
+
+           let conpon = gp.concat(gp1,gp2)
+           console.log(conpon);
+           this.tutoriaDes = lodood
            console.log(lodood);
+           console.log(ton);
+
+
+           let arrayHo = []
+           for (let i = 0; i < conpon.length; i++) {
+
+            for (let y = 0; y < lodood.length; y++) {
+              if (lodood[y].id === ton[i].abc) {
+                arrayHo.push({
+                  id:ton[i].abc,
+                  grupo:conpon[i][1],
+                  horas:conpon[i][2],
+                  numero:ton[i].ab,
+                  horasgrupo:conpon[i][3],
+                  horasinter:ton[i].abcd,
+                  deci:lodood[y].deci,
+                  horasg:lodood[y].horas,
+                  trunc:lodood[y].trunc,
+                })
+              }
+
+            }
+
+
+           }
+
+
+           console.log(arrayHo);
+
+
+
+
+
+
+           console.log(espanol);
+
+
 
 
 
