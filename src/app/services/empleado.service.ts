@@ -25,6 +25,9 @@ export class ProfesorService {
   agregarProfesor(profe:any):Promise<any>{
     return this.firestore.collection('profesores').add(profe);
   }
+  agregarProfesors(profe:any):Promise<any>{
+    return this.firestore.collection('profesoresdos').add(profe);
+  }
   mostrarProfesores():Observable<any>{
     return this.firestore.collection('profesores', order => order.orderBy('nombre','asc')).snapshotChanges();
   }

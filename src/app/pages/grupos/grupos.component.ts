@@ -46,6 +46,7 @@ export class GruposComponent implements OnInit {
 
        });
        this.tablaGrupos = maestro
+
        console.log(maestro,"mostrarProfesores");
 
       })

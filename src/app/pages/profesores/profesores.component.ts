@@ -33,6 +33,33 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   horaspt:any
   tutoriaDes:any = []
 
+  espa:any=[]
+  mar:any=[]
+  mier:any=[]
+
+  valort:boolean = true
+
+  maestrodd:any = []
+
+  metadata = {
+    nombre: 'manuel',
+    horas: 12,
+    Clave: "P-12",
+    asignatura: "ESPAÑOL",
+    asignaturaDos: '',
+    asignaturaTres: '',
+    preferencia:'No Importa	',
+    materias:{
+      lunes: ["1A","1B","","","","",""],
+      martes:["","","","","","",""],
+      miercoles:["","","","","","",""],
+      jueves:["","","","","","",""],
+      viernes:["","","","","","",""]
+    }
+  }
+
+  //rgDPDUoSZ5uhRx0JrJgu
+
   constructor(private dialog: MatDialog,
     private profesorService:ProfesorService,
     private toastr: ToastrService,
@@ -40,8 +67,24 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
     private apiInfoService:ApiInfoService) {
 
       this.apiInfoService.getGrupos().subscribe(res=>{
-        console.log(res);
+        //console.log(res);
         this.gupotTotales = res
+
+      })
+      let totaolGrupos:any = []
+      this.profesorService.mostrarHorarios().subscribe(res=>{
+       let profes:any = []
+       let maestro:any = []
+       res.forEach((element:any) => {
+         profes.push({
+           id: element.payload.doc.id,
+           ...element.payload.doc.data()
+         })
+         totaolGrupos = profes
+       });
+       //console.log(totaolGrupos);
+       this.controles = totaolGrupos
+
 
       })
 
@@ -67,6 +110,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   maestros:any[] = [];
 
   totalEspanol:number = 0
+  controles:any = [];
 
   CyEBase = 0;
   artesBase = 0;
@@ -95,503 +139,14 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
     localStorage.setItem('ruta', '/profesores');
      this.getProfesores()
 
+     this.loaading = true
      this.apiInfoService.getAgignaturas().subscribe(res=>{
      this.listaAsignatura = res
-
+     this.loaading = false
 
     })
 
-    this.profesorService.mostrarAsignatiras().subscribe(res=>{
 
-      let asig:any = []
-      let totalasig:any = []
-       res.forEach((element:any) => {
-         asig.push({
-          id: element.payload.doc.id,
-          ...element.payload.doc.data()
-        })
-        totalasig = asig
-       });
-       console.log(totalasig,"mostrarAsignatiras");
-       let totalasigH = totalasig.hEspanol
-       for (let i = 0; i < totalasig.length; i++) {
-
-         if(totalasig[i].id === "CyE"){
-           let contador = totalasig[i].htCyE
-           let CyE = 0
-           for (let i = 0; i < contador.length; i++) {
-             CyE += contador[i]
-           }
-           this.CyEBase = CyE;
-         }else if(totalasig[i].id === "artes"){
-           let cont = totalasig[i].htArtes
-           let artes = 0
-           for (let i = 0; i < cont.length; i++) {
-             artes += cont[i]
-           }
-           this.artesBase = artes;
-         }else if (totalasig[i].id === "ciencias") {
-           let cont = totalasig[i].htCiencias
-           let ciencias = 0
-           for (let i = 0; i < cont.length; i++) {
-             ciencias += cont[i]
-           }
-           this.cienciasBase = ciencias;
-         }else if (totalasig[i].id === "educacionF") {
-           let cont = totalasig[i].htEducacionF
-           let educacionF = 0
-           for (let i = 0; i < cont.length; i++) {
-             educacionF += cont[i]
-           }
-           this.educacionFBase = educacionF;
-         }else if (totalasig[i].id === "espanol") {
-           let cont = totalasig[i].htEspanol
-           let espanol = 0
-           for (let i = 0; i < cont.length; i++) {
-             espanol += cont[i]
-           }
-           this.espanolBase = espanol;
-         }else if (totalasig[i].id === "geografia") {
-           let cont = totalasig[i].htGeografia
-           let geografia = 0
-           for (let i = 0; i < cont.length; i++) {
-             geografia += cont[i]
-           }
-           this.geografiaBase = geografia;
-         }else if (totalasig[i].id === "historia") {
-           let cont = totalasig[i].htHistoria
-           let historia = 0
-           for (let i = 0; i < cont.length; i++) {
-             historia += cont[i]
-           }
-           this.historiaBase = historia;
-         }else if (totalasig[i].id === "ingles") {
-           let cont = totalasig[i].htIngles
-           let ingles = 0
-           for (let i = 0; i < cont.length; i++) {
-             ingles += cont[i]
-           }
-           this.inglesBase = ingles;
-         }else if (totalasig[i].id === "matematicas") {
-           let cont = totalasig[i].htMatematicas
-           let matematicas = 0
-           for (let i = 0; i < cont.length; i++) {
-             matematicas += cont[i]
-           }
-           this.matematicasBase = matematicas;
-         }else if (totalasig[i].id === "tecnologia") {
-           let cont = totalasig[i].htTecnologia
-           let tecnologia = 0
-           for (let i = 0; i < cont.length; i++) {
-             tecnologia += cont[i]
-           }
-           this.tecnologiaBase = tecnologia;
-         }else if (totalasig[i].id === "vidaSaludable") {
-           let cont = totalasig[i].htVidaSaludable
-           let vidaSaludable = 0
-           for (let i = 0; i < cont.length; i++) {
-             vidaSaludable += cont[i]
-           }
-           this.vidaSaludableBase = vidaSaludable;
-         }
-
-
-
-
-         //console.log(totalasig[i], "----");
-
-
-
-       }
-       console.log(
-         this.CyEBase,
-         this.artesBase,
-         this.cienciasBase,
-         this.educacionFBase,
-         this.espanolBase,
-         this.geografiaBase,
-         this.historiaBase,
-         this.inglesBase,
-         this.matematicasBase,
-         this.tecnologiaBase,
-         this.vidaSaludableBase);
-         this.totalasigy = totalasigH
-
-         this.profesorService.mostrarProfesores().subscribe(res=>{
-
-          let profes:any = []
-          let maestro:any = []
-           res.forEach((element:any) => {
-            profes.push({
-              id: element.payload.doc.id,
-              ...element.payload.doc.data()
-            })
-            maestro = profes
-
-
-           });
-
-           console.log(this.listaAsignatura);
-           console.log(maestro,"mostrarProfesores");
-
-           let espanol = [];
-           let matematicas = [];
-           let ciencias = [];
-           let historia = [];
-           let geografia = [];
-           let formciveti = [];
-           let ingles = [];
-           let musica = [];
-           let eficica = [];
-           let vidasaluda = [];
-           let tegnologia = [];
-           let titoria = [];
-
-           for (let i = 0; i < maestro.length; i++) {
-             if (maestro[i].asignatura === 'ESPAÑOL' || maestro[i].asignaturaDos === 'ESPAÑOL') {
-               espanol.push(maestro[i])
-             }else if (maestro[i].asignatura === 'MATEMATICAS' || maestro[i].asignaturaDos === 'MATEMATICAS') {
-              matematicas.push(maestro[i])
-            }else if (maestro[i].asignatura === 'CIENCIAS' || maestro[i].asignaturaDos === 'CIENCIAS') {
-              ciencias.push(maestro[i])
-            }else if (maestro[i].asignatura === 'HISTORIA' || maestro[i].asignaturaDos === 'HISTORIA') {
-              historia.push(maestro[i])
-            }else if (maestro[i].asignatura === 'GEOGRAFIA' || maestro[i].asignaturaDos === 'GEOGRAFIA') {
-              geografia.push(maestro[i])
-            }else if (maestro[i].asignatura === 'FORMACION CIVICA Y ETICA' || maestro[i].asignaturaDos === 'FORMACION CIVICA Y ETICA') {
-              formciveti.push(maestro[i])
-            }else if (maestro[i].asignatura === 'INGLES' || maestro[i].asignaturaDos === 'INGLES') {
-              ingles.push(maestro[i])
-            }else if (maestro[i].asignatura === 'MUSICA' || maestro[i].asignaturaDos === 'MUSICA') {
-              musica.push(maestro[i])
-            }else if (maestro[i].asignatura === 'EDUCACION FISICA' || maestro[i].asignaturaDos === 'EDUCACION FISICA') {
-              eficica.push(maestro[i])
-            }else if (maestro[i].asignatura === 'VIDA SALUDABLE' || maestro[i].asignaturaDos === 'VIDA SALUDABLE') {
-              vidasaluda.push(maestro[i])
-            }else if (maestro[i].asignatura === 'TECNOLOGIA' || maestro[i].asignaturaDos === 'TECNOLOGIA') {
-              tegnologia.push(maestro[i])
-            }else if (maestro[i].asignatura === 'TUTORIA' || maestro[i].asignaturaDos === 'TUTORIA') {
-              titoria.push(maestro[i])
-            }
-
-           }
-
-
-           let totaolGrupos:any = []
-           this.profesorService.mostrarHorarios().subscribe(res=>{
-            let profes:any = []
-            let maestro:any = []
-            res.forEach((element:any) => {
-              profes.push({
-                id: element.payload.doc.id,
-                ...element.payload.doc.data()
-              })
-              totaolGrupos = profes
-            });
-            console.log(totaolGrupos);
-
-           })
-
-
-           console.log(espanol);
-           //console.log(this.espanolBase);
-           console.log(totalasig);
-           console.log(this.gupotTotales);
-
-           let contador = 0
-           for (let i = 0; i < totalasig.length; i++) {
-            if (totalasig[i].id === 'espanol') {
-              console.log(totalasig[i]);
-              for (let t = 0; t < totalasig[i].htEspanol.length; t++) {
-                contador += totalasig[i].htEspanol[t]
-              }
-            }
-           }
-
-           let primero:any = [];
-           let segundo:any = [];
-           let tercero:any = [];
-           for (let i = 0; i < totalasig.length; i++) {
-             if (totalasig[i].id === 'espanol'){
-              for (let t = 0; t < totalasig[i].hEspanol.length; t++) {
-
-                primero = {
-                  1: totalasig[i].hEspanol[0]
-                }
-                segundo = {
-                  1: totalasig[i].hEspanol[1]
-                };
-                tercero = {
-                  1: totalasig[i].hEspanol[2]
-                };
-
-              }
-             }
-
-           }
-
-           //console.log(primero,"primero");
-           //console.log(segundo,"segundo");
-           //console.log(tercero,"tercero");
-
-
-
-
-
-
-
-           //console.log(contador,"contador");
-           let gp:any = []
-           let gp1:any = []
-           let gp2:any = []
-
-           for (let i = 0; i < this.gupotTotales.length; i++) {
-              //console.log(this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1));
-              if (this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1) === "1") {
-                //console.log("1");
-
-                gp = [
-                  {
-                    1:this.gupotTotales[0],
-                    2:primero[1],
-                    3:'1'
-                  },
-                  {
-                    1:this.gupotTotales[1],
-                    2:primero[1],
-                    3:'2'
-                  },
-                  {
-                    1:this.gupotTotales[2],
-                    2:primero[1],
-                    3:'3'
-                  },
-                  {
-                    1:this.gupotTotales[3],
-                    2:primero[1],
-                    3:'4'
-                  },
-                  {
-                    1:this.gupotTotales[4],
-                    2:primero[1],
-                    3:'5'
-                  }
-                ]
-                //console.log(this.gupotTotales[i]);
-              }else if (this.gupotTotales[i].substring(0, this.gupotTotales[i].length - 1) === "2") {
-                gp1  = [
-                  {
-                    1:this.gupotTotales[5],
-                    2:primero[1],
-                    3:'6'
-                  },
-                  {
-                    1:this.gupotTotales[6],
-                    2:primero[1],
-                    3:'7'
-                  },
-                  {
-                    1:this.gupotTotales[7],
-                    2:primero[1],
-                    3:'8'
-                  },
-                  {
-                    1:this.gupotTotales[8],
-                    2:primero[1],
-                    3:'9'
-                  },
-                  {
-                    1:this.gupotTotales[9],
-                    2:primero[1],
-                    3:'10'
-                  }
-                ]
-                //console.log("2");
-               // console.log(this.gupotTotales[i]);
-              }else {
-                gp2  = [
-                  {
-                    1:this.gupotTotales[10],
-                    2:primero[1],
-                    3:'11'
-                  },
-                  {
-                    1:this.gupotTotales[11],
-                    2:primero[1],
-                    3:'12'
-                  },
-                  {
-                    1:this.gupotTotales[12],
-                    2:primero[1],
-                    3:'13'
-                  },
-                  {
-                    1:this.gupotTotales[13],
-                    2:primero[1],
-                    3:'14'
-                  },
-                  {
-                    1:this.gupotTotales[14],
-                    2:primero[1],
-                    3:'15'
-                  }
-                ]
-                //console.log("3");
-                //console.log(this.gupotTotales[i]);
-              }
-           }
-
-
-           //console.log(gp1);
-           //console.log(gp2);
-
-           let gpt = {
-             1:gp,
-             2:primero[1]
-           }
-
-           //console.log(gpt[2]);
-
-           let lodood = []
-           for (let i = 0; i < espanol.length; i++) {
-
-            let num1 =  espanol[i].horas/gpt[2]
-            let num2 = Math.trunc(espanol[i].horas/gpt[2])
-            let num3 = num1-num2
-            if ( parseFloat(num3.toFixed(2)) *  gpt[2] ===0) {
-              lodood.push({
-                id: espanol[i].id,
-                horas:espanol[i].horas/gpt[2],
-                trunc: Math.trunc(espanol[i].horas/gpt[2]),
-                deci: parseFloat(num3.toFixed(2)) *  gpt[2],
-                horasServicio: 0,
-                tutoria: 0
-
-               })
-
-            }else{
-              lodood.push({
-                id: espanol[i].id,
-                horas:espanol[i].horas/gpt[2],
-                trunc: Math.trunc(espanol[i].horas/gpt[2]),
-                deci: parseFloat(num3.toFixed(2)) *  gpt[2],
-                horasServicio: (parseFloat(num3.toFixed(2)) *  gpt[2])-1,
-                tutoria: ((parseFloat(num3.toFixed(2)) *  gpt[2])+1)-(parseFloat(num3.toFixed(2)) *  gpt[2])
-
-               })
-
-            }
-
-           }
-
-
-
-           let arr = []
-           for (let i = 0; i < lodood.length; i++) {
-             //console.log("ffff");
-             let num = 0
-
-             //espanol[i].id
-             if (lodood[i].id == espanol[i].id) {
-              num = lodood[i].trunc
-               //console.log(num);
-
-               for (let t = 0; t < num; t++) {
-
-                arr.push({
-                  a: t+1,
-                  id: espanol[i].id
-                })
-
-               }
-
-
-             }
-
-           }
-           //console.log(arr);
-
-           let ton = []
-           for (let i = 0; i < arr.length; i++) {
-
-            ton.push({
-                ab : arr[i].a,
-                abc : arr[i].id,
-                abcd : i + 1
-
-            })
-
-           }
-
-           let conpon = gp.concat(gp1,gp2)
-           console.log(conpon);
-           this.tutoriaDes = lodood
-           console.log(lodood);
-           console.log(ton);
-
-
-           let arrayHo = []
-           for (let i = 0; i < conpon.length; i++) {
-
-            for (let y = 0; y < lodood.length; y++) {
-              if (lodood[y].id === ton[i].abc) {
-                arrayHo.push({
-                  id:ton[i].abc,
-                  grupo:conpon[i][1],
-                  horas:conpon[i][2],
-                  numero:ton[i].ab,
-                  horasgrupo:conpon[i][3],
-                  horasinter:ton[i].abcd,
-                  deci:lodood[y].deci,
-                  horasg:lodood[y].horas,
-                  trunc:lodood[y].trunc,
-                })
-              }
-
-            }
-
-
-           }
-
-
-           console.log(arrayHo);
-
-
-
-
-
-
-           console.log(espanol);
-
-
-
-
-
-
-
-
-
-
-           console.log(matematicas);
-           console.log(ciencias);
-           console.log(historia);
-           console.log(geografia);
-           console.log(formciveti);
-           console.log(ingles);
-           console.log(musica);
-           console.log(eficica);
-           console.log(vidasaluda);
-           console.log(tegnologia);
-           console.log(titoria);
-
-
-
-
-         })
-
-
-
-    })
 
 
 
@@ -599,6 +154,10 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
 
    }
+
+
+
+
    onClick(){
     console.log("onClick");
 
@@ -678,6 +237,237 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
       }
     });
   }
+
+
+  aceptarEspaq(){
+    console.log("dd");
+
+  }
+
+
+  aceptarEspa(){
+    this.profesorService.mostrarAsignatiras().subscribe(res=>{
+
+      let asig:any = []
+      let totalasig:any = []
+       res.forEach((element:any) => {
+         asig.push({
+          id: element.payload.doc.id,
+          ...element.payload.doc.data()
+        })
+        totalasig = asig
+       });
+       //console.log(totalasig);
+      })
+
+
+      this.profesorService.mostrarProfesores().subscribe(res=>{
+
+        let profes:any = []
+        let maestro:any = []
+         res.forEach((element:any) => {
+          profes.push({
+            id: element.payload.doc.id,
+            ...element.payload.doc.data()
+          })
+          maestro = profes
+         });
+         if (maestro.length === 1 || maestro.length === 0 ) {
+          this.toastr.error(' Error!', 'Tienes que colocar 5 o 6 Profesores ', {
+            timeOut: 4000,
+          })
+          return
+         }else{
+          //console.log(maestro);
+          let horasTotales = 0
+          for (let i = 0; i < maestro.length; i++) {
+            horasTotales += maestro[i].horas;
+          }
+          if (maestro.length === 5) {
+            if (horasTotales >= 75) {
+              /*
+              this.toastr.success(`Se cargaron 5 elementos`, 'Exito', {
+                timeOut: 4000,
+              });*/
+              let pasan:any = [""]
+              for (let o = 0; o < maestro.length; o++) {
+                if (maestro[o].horas < 5 ) {
+                  pasan.push({
+                     0: maestro[o].horas,
+                     1:1+o
+                  })
+                }
+              }
+              if (pasan == "") {
+                var mensaje;
+                /**
+                var opcion = confirm("Deseas que todos los maestros tengan horas de clase?");
+
+                if (opcion == true) {
+                    mensaje = "Has clickado OK";
+                    console.log(mensaje);
+*/
+                    //
+
+                  let arr:any = []
+                  let asignacion = [3,3,3,4,2]
+                   let split = asignacion.sort()
+                  let orden:any = []
+                  for (let v = 0; v < maestro.length; v++) {
+                    orden.push({
+                      horas:parseFloat((maestro[v].horas/5).toFixed(0)),
+                      id:maestro[v].id
+                    })
+                  }
+                  const maestrosOrdenados =orden.sort((a:any, b:any) => a.horas - b.horas)
+                  for (let g = 0; g < maestrosOrdenados.length; g++) {
+                    if (maestrosOrdenados[g].horas <= 1 ) {
+                      this.toastr.error(`No se puede ejecutar la operacion,
+                                           no puede haber menos de 15 horas en un
+                                           profesor`, 'Error!', {
+                          timeOut: 4000,
+                        })
+                        return
+                    }
+                  }
+
+                  console.log(maestrosOrdenados);
+
+                  let nio:any=[]
+                  for (let z = 0; z < maestrosOrdenados.length; z++) {
+                    if (maestrosOrdenados[z].horas  >= split[z]) {
+                      nio.push({status:true})
+                    }else{
+                      this.toastr.error(`No se pudo ejecutar. El algoritmo de los grupos no cuadran con las horas`, 'Error!', {
+                        timeOut: 4000,
+                      })
+                      return
+                    }
+                  }
+                  console.log(nio);
+                  let incertar:any =  {
+                                    0:{
+                                      lunes: ["3E","","2E","","","",""],
+                                      martes:["3E","","2E","","","",""],
+                                      miercoles:["3E","2E","","","","",""],
+                                      jueves:["3E","2E","","","","",""],
+                                      viernes:["2E","3E","","","","",""]
+                                    },
+                                    1:{
+                                      lunes: ["","1A","","1B","2D","",""],
+                                      martes:["","","1A","","1B","",""],
+                                      miercoles:["","","","1B","","1A","2D"],
+                                      jueves:["","","","","","1B","1A"],
+                                      viernes:["","","","1B","1A","2D",""]
+                                    },
+                                    2:{
+                                      lunes: ["","2B","2C","2A","","",""],
+                                      martes:["2B","2A","","2C","","",""],
+                                      miercoles:["","","","","2C","2A","2B"],
+                                      jueves:["2A","2C","2B","","","",""],
+                                      viernes:["2B","2C","2A","","","",""]
+                                    },
+                                    3:{
+                                      lunes: ["","","","1C","1E","","1D"],
+                                      martes:["","","1C","","","1D","1E"],
+                                      miercoles:["","","","","1C","1D","1E"],
+                                      jueves:["","","","1C","1D","1E",""],
+                                      viernes:["","","","1D","1E","1C"]
+                                    },
+                                    4:{
+                                      lunes: ["","","3C","3D","","3B","3A"],
+                                      martes:["3D","3B","","3C","3A","",""],
+                                      miercoles:["3C","3A","3D","3B","","",""],
+                                      jueves:["","","3A","3B","","3C","3D"],
+                                      viernes:["3D","3B","3A","3C","","",""]
+                                    },
+
+                                  }
+                  for (let c = 0; c < maestrosOrdenados.length; c++) {
+                    this.cargarGrupos(maestrosOrdenados[c].id, incertar[c])
+                  }
+                    /* this.toastr.error(`No se puede ejecutar la operacion,
+                                           no puede haber menos de 15 horas en un
+                                           profesor`, 'Error!', {
+                          timeOut: 4000,
+                        })
+                         if (maestro[n].horas/5 >= asignacion[n]) {
+                        arr.push({
+                          id:maestro[n].id,
+                          horas:maestro[n].horas/5,
+                          asignacion: asignacion[n]
+                        })
+                      }else{
+                        console.log("No operacion");
+
+
+                      }
+
+                        */
+                /*
+                } else {
+                    mensaje = "Has clickado Cancelar";
+                    console.log(mensaje);
+                }*/
+              }else{
+                this.toastr.error(`En alguna posicion tienes menos de 5 horas`, 'Error!', {
+                  timeOut: 4000,
+                })
+              }
+            }else{
+              this.toastr.error(` No se puede hacer la ejecucion, la suma es ${horasTotales} horas, tienen que ser mas de 75 horas`, 'Error', {
+                timeOut: 4000,
+              })
+            }
+          }
+          if (maestro.length === 4 || maestro.length === 3 || maestro.length === 2){
+            this.toastr.error(`No hay un algoritmo que se puede ejecturar con 2,3 y 4 profesores`, 'Error!', {
+              timeOut: 4000,
+            })
+            return
+          }
+          if (maestro.length === 6){
+            console.log("se puede");
+            return
+
+          }
+         }
+
+        })
+
+
+
+
+  }
+
+
+  cargarGrupos(maestrosOrdena:any, incert:any){
+
+    this.profesorService.traesIdProfesor(maestrosOrdena).subscribe(res=>{
+      this.maestrodd = {
+         nombre: res.payload.data()['nombre'],
+         horas: res.payload.data()['horas'],
+         Clave: res.payload.data()['Clave'],
+         asignatura: res.payload.data()['asignatura'],
+         asignaturaDos: res.payload.data()['asignaturaDos'],
+         asignaturaTres: res.payload.data()['asignaturaTres'],
+         preferencia: res.payload.data()['preferencia'],
+           materias:incert
+         }
+
+         if ( this.valort === true) {
+          this.profesorService.actualizarProfesor(maestrosOrdena, this.maestrodd).then(()=>{
+           console.log("exito");
+           this.valort = false
+          }).catch(err=>{
+           console.log(err);
+           this.valort = false
+          })
+         }
+
+   })
+  }
+
 
 
 }
