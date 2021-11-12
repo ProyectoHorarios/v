@@ -35,11 +35,11 @@ export class HporprofesorComponent implements OnInit {
     let arr:any = this.data.animal;
      let info = []
      for (let i = 0; i < arr.length; i++) {
-
       if (id === arr[i]['id']) {
         info = arr[i];
       }
     }
+
     console.log(info);
 
 

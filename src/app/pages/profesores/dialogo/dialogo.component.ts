@@ -40,6 +40,8 @@ export class DialogoComponent implements OnInit {
     asignaturaDos: [''],
     asignaturaTres: [''],
     preferencia:['', [Validators.required]],
+    tutoria:[''],
+    se:[''],
     materias:[{
       lunes: ["","","","","","",""],
       martes:["","","","","","",""],
@@ -143,6 +145,8 @@ export class DialogoComponent implements OnInit {
           asignaturaDos: res.payload.data()['asignaturaDos'],
           asignaturaTres: res.payload.data()['asignaturaTres'],
           preferencia: res.payload.data()['preferencia'],
+          tutoria:res.payload.data()['tutoria'],
+          se:res.payload.data()['se'],
           materias: this.registro.value.materias
 
         })

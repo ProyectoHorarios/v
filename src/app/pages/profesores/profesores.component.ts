@@ -36,8 +36,10 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   espa:any=[]
   mar:any=[]
   mier:any=[]
+  maestroEspañol:any=[]
 
   valort:boolean = true
+  valory:boolean = true
 
   maestrodd:any = []
 
@@ -84,19 +86,26 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
        });
        //console.log(totaolGrupos);
        this.controles = totaolGrupos
-
-
       })
+      this.profesorService.mostrarProfesores().subscribe(res=>{
+        let profes:any = []
+
+         res.forEach((element:any) => {
+          profes.push({
+            id: element.payload.doc.id,
+            ...element.payload.doc.data()
+          })
+          this.maestroEspañol = profes
+         });
+        })
 
 }
 
   OpenModal(nam:any) {
-
     this.matDialogRef = this.matDialog.open(HporprofesorComponent, {
       data: {name: nam, animal: this.tutoriaDes},
       disableClose: false
     });
-
     this.matDialogRef.afterClosed().subscribe(res => {
       if ((res == true)) {
         this.name = "";
@@ -145,14 +154,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
      this.loaading = false
 
     })
-
-
-
-
-
-
-
-
    }
 
 
@@ -241,42 +242,22 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   aceptarEspaq(){
     console.log("dd");
+    this.aceptarEspa();
 
   }
 
 
   aceptarEspa(){
-    this.profesorService.mostrarAsignatiras().subscribe(res=>{
-
-      let asig:any = []
-      let totalasig:any = []
-       res.forEach((element:any) => {
-         asig.push({
-          id: element.payload.doc.id,
-          ...element.payload.doc.data()
-        })
-        totalasig = asig
-       });
-       //console.log(totalasig);
-      })
-
-
-      this.profesorService.mostrarProfesores().subscribe(res=>{
-
-        let profes:any = []
         let maestro:any = []
-         res.forEach((element:any) => {
-          profes.push({
-            id: element.payload.doc.id,
-            ...element.payload.doc.data()
-          })
-          maestro = profes
-         });
+         for (let q = 0; q < this.maestroEspañol.length; q++) {
+          if (this.maestroEspañol[q].asignatura === "ESPAÑOL") {
+            maestro.push(this.maestroEspañol[q])
+          }
+         }
          if (maestro.length === 1 || maestro.length === 0 ) {
           this.toastr.error(' Error!', 'Tienes que colocar 5 o 6 Profesores ', {
             timeOut: 4000,
           })
-          return
          }else{
           //console.log(maestro);
           let horasTotales = 0
@@ -285,10 +266,10 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
           }
           if (maestro.length === 5) {
             if (horasTotales >= 75) {
-              /*
+
               this.toastr.success(`Se cargaron 5 elementos`, 'Exito', {
                 timeOut: 4000,
-              });*/
+              });
               let pasan:any = [""]
               for (let o = 0; o < maestro.length; o++) {
                 if (maestro[o].horas < 5 ) {
@@ -299,27 +280,20 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                 }
               }
               if (pasan == "") {
-                var mensaje;
-                /**
-                var opcion = confirm("Deseas que todos los maestros tengan horas de clase?");
-
-                if (opcion == true) {
-                    mensaje = "Has clickado OK";
-                    console.log(mensaje);
-*/
-                    //
-
                   let arr:any = []
                   let asignacion = [3,3,3,4,2]
                    let split = asignacion.sort()
                   let orden:any = []
+                  let  datosst:any = []
                   for (let v = 0; v < maestro.length; v++) {
                     orden.push({
                       horas:parseFloat((maestro[v].horas/5).toFixed(0)),
-                      id:maestro[v].id
+                      id:maestro[v].id,
+                      hor:maestro[v].horas
                     })
                   }
-                  const maestrosOrdenados =orden.sort((a:any, b:any) => a.horas - b.horas)
+
+                  const maestrosOrdenados = orden.sort((a:any, b:any) => a.horas - b.horas)
                   for (let g = 0; g < maestrosOrdenados.length; g++) {
                     if (maestrosOrdenados[g].horas <= 1 ) {
                       this.toastr.error(`No se puede ejecutar la operacion,
@@ -330,6 +304,39 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                         return
                     }
                   }
+
+                  console.log(orden);
+                  console.log(split);
+
+                  for (let a = 0; a < orden.length; a++) {
+
+
+                    if (parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 === 0) {
+                      datosst.push({
+                        s:orden[a].horas,
+                        horas:orden[a].hor,
+                        id:orden[a].id,
+                        se: 0,
+                        tutoria: 0
+                      })
+
+                    }else{
+                      datosst.push({
+                        s:orden[a].horas,
+                        horas:orden[a].hor,
+                        id:orden[a].id,
+                        se: parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 - 1,
+                        tutoria: 1
+                      })
+
+                    }
+
+
+                  }
+
+                 // console.log(datosst);
+
+
 
                   console.log(maestrosOrdenados);
 
@@ -344,7 +351,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                       return
                     }
                   }
-                  console.log(nio);
                   let incertar:any =  {
                                     0:{
                                       lunes: ["3E","","2E","","","",""],
@@ -384,31 +390,12 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
                                   }
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
-                    this.cargarGrupos(maestrosOrdenados[c].id, incertar[c])
+                    this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
+
                   }
-                    /* this.toastr.error(`No se puede ejecutar la operacion,
-                                           no puede haber menos de 15 horas en un
-                                           profesor`, 'Error!', {
-                          timeOut: 4000,
-                        })
-                         if (maestro[n].horas/5 >= asignacion[n]) {
-                        arr.push({
-                          id:maestro[n].id,
-                          horas:maestro[n].horas/5,
-                          asignacion: asignacion[n]
-                        })
-                      }else{
-                        console.log("No operacion");
-
-
-                      }
-
-                        */
-                /*
-                } else {
-                    mensaje = "Has clickado Cancelar";
-                    console.log(mensaje);
-                }*/
+                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                    timeOut: 4000,
+                  });
               }else{
                 this.toastr.error(`En alguna posicion tienes menos de 5 horas`, 'Error!', {
                   timeOut: 4000,
@@ -433,15 +420,11 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
           }
          }
 
-        })
-
-
-
 
   }
 
 
-  cargarGrupos(maestrosOrdena:any, incert:any){
+  cargarGrupos(maestrosOrdena:any, incert:any, hse:any, tuto:any){
 
     this.profesorService.traesIdProfesor(maestrosOrdena).subscribe(res=>{
       this.maestrodd = {
@@ -452,6 +435,8 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
          asignaturaDos: res.payload.data()['asignaturaDos'],
          asignaturaTres: res.payload.data()['asignaturaTres'],
          preferencia: res.payload.data()['preferencia'],
+         tutoria:hse,
+         se:tuto,
            materias:incert
          }
 
