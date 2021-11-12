@@ -241,7 +241,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
 
   aceptarEspaq(){
-    console.log("dd");
     this.aceptarEspa();
 
   }
@@ -304,13 +303,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                         return
                     }
                   }
-
-                  console.log(orden);
-                  console.log(split);
-
                   for (let a = 0; a < orden.length; a++) {
-
-
                     if (parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 === 0) {
                       datosst.push({
                         s:orden[a].horas,
@@ -319,7 +312,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                         se: 0,
                         tutoria: 0
                       })
-
                     }else{
                       datosst.push({
                         s:orden[a].horas,
@@ -328,18 +320,8 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                         se: parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 - 1,
                         tutoria: 1
                       })
-
                     }
-
-
                   }
-
-                 // console.log(datosst);
-
-
-
-                  console.log(maestrosOrdenados);
-
                   let nio:any=[]
                   for (let z = 0; z < maestrosOrdenados.length; z++) {
                     if (maestrosOrdenados[z].horas  >= split[z]) {
@@ -391,7 +373,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                                   }
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
-
                   }
                   this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
                     timeOut: 4000,
@@ -416,7 +397,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
           if (maestro.length === 6){
             console.log("se puede");
             return
-
           }
          }
 
@@ -435,14 +415,13 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
          asignaturaDos: res.payload.data()['asignaturaDos'],
          asignaturaTres: res.payload.data()['asignaturaTres'],
          preferencia: res.payload.data()['preferencia'],
-         tutoria:hse,
-         se:tuto,
+         tutoria:tuto,
+         se:hse,
            materias:incert
          }
-
          if ( this.valort === true) {
           this.profesorService.actualizarProfesor(maestrosOrdena, this.maestrodd).then(()=>{
-           console.log("exito");
+           //console.log("exito");
            this.valort = false
           }).catch(err=>{
            console.log(err);
