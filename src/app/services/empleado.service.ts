@@ -54,10 +54,14 @@ export class ProfesorService {
   login(email: string, password: string) {
    return this.afAuth.signInWithEmailAndPassword(email, password)
     .then(value => {
-      console.log(value,"mg@mani.com");
-
       const tbd:any = value.user!['multiFactor']
-      console.log('Nice, it worked!', tbd.user);
+      const ultimo = tbd.user.metadata.lastSignInTime.substring(4)
+      const ulti = tbd.user.metadata.creationTime.substring(18)
+      const str2 = ultimo.substr(0, ultimo.length - 13);
+      const str1 = ulti.substr(0, ulti.length - 4);
+
+      localStorage.setItem('creacion', str1);
+      localStorage.setItem('ultimo', str2);
       localStorage.setItem('email', email);
       localStorage.setItem('pan', password);
 
@@ -109,6 +113,8 @@ export class ProfesorService {
     localStorage.removeItem('email');
     localStorage.removeItem('pan');
     localStorage.removeItem('ruta');
+    localStorage.removeItem('creacion');
+    localStorage.removeItem('ultimo');
     this.afAuth.signOut().then(() => {
       this.router.navigate(['/login']);
     });
