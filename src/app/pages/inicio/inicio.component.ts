@@ -15,6 +15,16 @@ export class InicioComponent implements OnInit {
   maestrosss:any = []
   mal:any
   user!: any[];
+  espanol!: any[];
+  matematicas!: any[];
+  ciencias!: any[];
+  historia!: any[];
+  geografia!: any[];
+  fcye!: any[];
+  ing!: any[];
+  music!: any[];
+  ef!: any[];
+  vs!: any[];
   constructor( private exportService: ExportService,
                private profesorService:ProfesorService) {
                 this.maestrosss  = []
@@ -94,6 +104,65 @@ export class InicioComponent implements OnInit {
     }
     console.log(this.user);
 
+    let espa:any = [];
+    let mate:any=[];
+    let cien:any=[];
+    let hist:any=[];
+    let geo:any=[];
+    let fcye:any=[];
+    let ing:any=[];
+    let music:any=[];
+    let ef:any=[];
+    let vs:any=[];
+    for (let d = 0; d < this.user.length; d++) {
+
+      if (this.user[d].asignatura === 'ESPAÑOL') {
+        espa.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'MATEMATICAS') {
+        mate.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'CIENCIAS') {
+        cien.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'HISTORIA') {
+        hist.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'GEOGRAFIA') {
+        geo.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'FORMACION CIVICA Y ETICA') {
+        fcye.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'INGLES') {
+        ing.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'MUSICA') {
+        music.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'EDUCACION FISICA') {
+        ef.push(this.user[d])
+      }
+      if (this.user[d].asignatura === 'VIDA SALUDABLE') {
+        vs.push(this.user[d])
+      }
+
+
+    }
+
+    console.log(hist);
+    this.espanol = espa
+    this.matematicas = mate
+    this.ciencias = cien
+    this.historia = hist
+    this.geografia = geo
+    this.fcye = fcye
+    this.ing  = ing
+    this.music  = music
+    this.ef  = ef
+    this.vs  = vs
+
+
       })
 
 
@@ -108,6 +177,7 @@ export class InicioComponent implements OnInit {
   exportToExcel(): void {
     let topfes = []
     for (let i = 0; i < this.maestrosss.length; i++) {
+
 
       topfes.push({
         id:this.maestrosss[i].id,
