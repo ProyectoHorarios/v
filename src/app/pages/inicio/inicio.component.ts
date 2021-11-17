@@ -303,7 +303,7 @@ export class InicioComponent implements OnInit {
       });
     });*/
     //edata.push(bd);
-    this.exportService.exportJsonToExcel(edata, 'user_data_customized');
+    this.exportService.exportJsonToExcel(edata, 'horarios');
 
   }
 
