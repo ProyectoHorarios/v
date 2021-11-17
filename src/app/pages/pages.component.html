@@ -26,14 +26,16 @@
           class="menu-button"
           routerLink="/inicio">
           <mat-icon>home</mat-icon>
-          <span>Inicio</span>
+          <span *ngIf="pantall > 800">Inicio</span>
+          <span *ngIf="pantall < 800" (click)="sidenav.toggle()">Inicio</span>
       </button>
       <button
           routerLink="/profesores"
           mat-button
           class="menu-button">
           <mat-icon>person</mat-icon>
-          <span>Profesores</span>
+          <span *ngIf="pantall > 800">Profesores</span>
+          <span *ngIf="pantall < 800" (click)="sidenav.toggle()">Profesores</span>
       </button>
       <button
           mat-button
@@ -41,6 +43,8 @@
           routerLink="/grupos">
           <mat-icon>info</mat-icon>
           <span>Grupos</span>
+          <span *ngIf="pantall > 800">Grupos</span>
+          <span *ngIf="pantall < 800" (click)="sidenav.toggle()">Grupos</span>
       </button>
 
       <mat-divider></mat-divider>
@@ -49,7 +53,8 @@
           mat-button class="menu-button"
           (click)="cerrar()">
           <mat-icon>close</mat-icon>
-          <span>Cerrar sesion</span>
+          <span *ngIf="pantall > 800">Cerrar sesion</span>
+          <span *ngIf="pantall < 800" (click)="sidenav.toggle()">Cerrar sesion</span>
       </button>
 
       <div style="margin-top: 130px;">

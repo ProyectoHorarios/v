@@ -19,6 +19,7 @@ export class PagesComponent implements OnInit  {
   sidenav!: MatSidenav;
   emailY:string | null = ''
   ultimos:string | null = ''
+  pantall:number = 0
 
   constructor(private observer: BreakpointObserver,
               private afAuth: AngularFireAuth,
@@ -27,10 +28,11 @@ export class PagesComponent implements OnInit  {
 
 
               ngOnInit(){
+                this.pantall = window.innerWidth;
                 const email:string | null = localStorage.getItem('email');
                 const ultimo:string | null = localStorage.getItem('ultimo');
-                  this.emailY = email
-                  this.ultimos = ultimo
+                  this.emailY = email;
+                  this.ultimos = ultimo;
               }
 
   ngAfterViewInit() {

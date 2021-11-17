@@ -33,6 +33,7 @@
   </div>
 
   <button (click)="eliminarco()">eliminar</button>
+  <button (click)="cargar()">cargar</button>
   <br><br>
   <div class="card">
     <div class="card-header">
@@ -51,8 +52,8 @@
           </tr>
         </thead>
         <tbody class="">
-          <tr *ngFor="let user of users">
-            <td scope="row">{{ user.id }}</td>
+          <tr *ngFor="let user of user">
+            <td scope="row">{{ user.nombre }}</td>
             <td>
               <table >
                 <tr>

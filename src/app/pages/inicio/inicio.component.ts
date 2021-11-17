@@ -12,167 +12,153 @@ import { ProfesorService } from '../../services/empleado.service';
 export class InicioComponent implements OnInit {
 
   users!: any[];
+  maestrosss:any = []
+  mal:any
+  user!: any[];
   constructor( private exportService: ExportService,
-               private profesorService:ProfesorService) { }
+               private profesorService:ProfesorService) {
+                this.maestrosss  = []
+                this.profesorService.mostrarProfesores().subscribe(res=>{
+                  let profes:any = []
+                   res.forEach((element:any) => {
+                    profes.push({
+                      id: element.payload.doc.id,
+                      ...element.payload.doc.data()
+                    })
+                   });
+                   this.maestrosss = profes
+                  })
+
+                }
 
   async ngOnInit(){
+
     localStorage.removeItem('ruta');
     localStorage.setItem('ruta', '/inicio');
 
+    this.maestrosss  = []
+    this.profesorService.mostrarProfesores().subscribe(res=>{
+      let profes:any = []
+       res.forEach((element:any) => {
+        profes.push({
+          id: element.payload.doc.id,
+          ...element.payload.doc.data()
+        })
+       });
+       this.maestrosss = profes
+       this.user = []
+    for (let i = 0; i < this.maestrosss.length; i++) {
 
-    this.users = [
-      {
-        id: "Hernández Castillo Evelyn",
-        firstName: {
-          uno: "TB3",
-          dos: "SE",
-          tres: "3C",
-          cuatro: "3D",
-          cinco: "SE",
-          seis: "3B",
-          siete: "3A",
-          unoa: "3D",
-          dosa: "3B",
-          tresa: "SE",
-          cuatroa: "3D",
-          cincoa: "3A",
-          seisa: "NULL",
-          sietea: "NULL",
-          unob: "3C",
-          dosb: "3A",
-          tresb: "3D",
-          cuatrob: "3B",
-          cincob: "NULL",
-          seisb: "NULL",
-          sieteb: "NULL",
-          unoc: "NULL",
-          dosc: "NULL",
-          tresc: "3A",
-          cuatroc: "3B",
-          cincoc: "SE",
-          seisc: "3C",
-          sietec: "3D",
-          unod: "3D",
-          dosd: "3B",
-          tresd: "3A",
-          cuatrod: "3C",
-          cincod: "NULL",
-          seisd: "NULL",
-          sieted: "NULL",
-          },
-        lastName: {
-          uno: "1",
-          dos: "2"
-          },
-        handle: {
-          uno: "1",
-          dos: "2"
-          }
-      },
-      {
-        id: "Mauricio Durán Cecilia Guadalupe",
-        firstName: {
-          uno: "NULL",
-          dos: "1A",
-          tres: "SE",
-          cuatro: "1B",
-          cinco: "2D",
-          seis: "SE",
-          siete: "NULL",
-          unoa: "2D",
-          dosa: "SE",
-          tresa: "1A",
-          cuatroa: "SE",
-          cincoa: "1B",
-          seisa: "NULL",
-          sietea: "NULL",
-          unob: "NULL",
-          dosb: "NULL",
-          tresb: "NULL",
-          cuatrob: "1B",
-          cincob: "SE",
-          seisb: "1A",
-          sieteb: "2D",
-          unoc: "NULL",
-          dosc: "NULL",
-          tresc: "NULL",
-          cuatroc: "2D",
-          cincoc: "SE",
-          seisc: "1B",
-          sietec: "1A",
-          unod: "NULL",
-          dosd: "NULL",
-          tresd: "NULL",
-          cuatrod: "1B",
-          cincod: "1A",
-          seisd: "2D",
-          sieted: "T1B",
-          },
-        lastName: {
-          uno: "1",
-          dos: "2"
-          },
-        handle: {
-          uno: "1",
-          dos: "2"
-          }
-      },
-      {
-        id: "Carlos Espinosa Dan",
-        firstName: {
-          uno: "NULL",
-          dos: "1A",
-          tres: "SE",
-          cuatro: "1B",
-          cinco: "2D",
-          seis: "SE",
-          siete: "NULL",
-          unoa: "2D",
-          dosa: "SE",
-          tresa: "1A",
-          cuatroa: "SE",
-          cincoa: "1B",
-          seisa: "NULL",
-          sietea: "NULL",
-          unob: "NULL",
-          dosb: "NULL",
-          tresb: "NULL",
-          cuatrob: "1B",
-          cincob: "SE",
-          seisb: "1A",
-          sieteb: "2D",
-          unoc: "NULL",
-          dosc: "NULL",
-          tresc: "NULL",
-          cuatroc: "2D",
-          cincoc: "SE",
-          seisc: "1B",
-          sietec: "1A",
-          unod: "NULL",
-          dosd: "NULL",
-          tresd: "NULL",
-          cuatrod: "1B",
-          cincod: "1A",
-          seisd: "2D",
-          sieted: "T1B",
-          },
-        lastName: {
-          uno: "1",
-          dos: "2"
-          },
-        handle: {
-          uno: "1",
-          dos: "2"
-          }
-      }
-    ];
+      this.user.push({
+        id:this.maestrosss[i].id,
+        firstName:{
+          uno: this.maestrosss[i].materias.lunes[0],
+          dos: this.maestrosss[i].materias.lunes[1],
+          tres: this.maestrosss[i].materias.lunes[2],
+          cuatro: this.maestrosss[i].materias.lunes[3],
+          cinco: this.maestrosss[i].materias.lunes[4],
+          seis: this.maestrosss[i].materias.lunes[5],
+          siete: this.maestrosss[i].materias.lunes[6],
+          unoa: this.maestrosss[i].materias.martes[0],
+          dosa: this.maestrosss[i].materias.martes[1],
+          tresa: this.maestrosss[i].materias.martes[2],
+          cuatroa: this.maestrosss[i].materias.martes[3],
+          cincoa: this.maestrosss[i].materias.martes[4],
+          seisa: this.maestrosss[i].materias.martes[5],
+          sietea: this.maestrosss[i].materias.martes[6],
+          unob: this.maestrosss[i].materias.miercoles[0],
+          dosb:  this.maestrosss[i].materias.miercoles[1],
+          tresb:  this.maestrosss[i].materias.miercoles[2],
+          cuatrob:  this.maestrosss[i].materias.miercoles[3] ,
+          cincob:  this.maestrosss[i].materias.miercoles[4] ,
+          seisb:  this.maestrosss[i].materias.miercoles[5] ,
+          sieteb:  this.maestrosss[i].materias.miercoles[6],
+          unoc:  this.maestrosss[i].materias.jueves[0],
+          dosc: this.maestrosss[i].materias.jueves[1],
+          tresc: this.maestrosss[i].materias.jueves[2],
+          cuatroc: this.maestrosss[i].materias.jueves[3],
+          cincoc:this.maestrosss[i].materias.jueves[4],
+          seisc: this.maestrosss[i].materias.jueves[5],
+          sietec: this.maestrosss[i].materias.jueves[6],
+          unod: this.maestrosss[i].materias.viernes[0],
+          dosd:this.maestrosss[i].materias.viernes[1],
+          tresd: this.maestrosss[i].materias.viernes[2],
+          cuatrod: this.maestrosss[i].materias.viernes[3],
+          cincod: this.maestrosss[i].materias.viernes[4],
+          seisd: this.maestrosss[i].materias.viernes[5],
+          sieted: this.maestrosss[i].materias.viernes[6],
+        },
+        asignatura:this.maestrosss[i].asignatura,
+        nombre:this.maestrosss[i].nombre
+      })
+    }
+    console.log(this.user);
+
+      })
+
+
+
 
   }
+
 
   exportElmToExcel(){
 
   }
   exportToExcel(): void {
+    let topfes = []
+    for (let i = 0; i < this.maestrosss.length; i++) {
+
+      topfes.push({
+        id:this.maestrosss[i].id,
+        firstName:{
+          uno: this.maestrosss[i].materias.lunes[0],
+          dos: this.maestrosss[i].materias.lunes[1],
+          tres: this.maestrosss[i].materias.lunes[2],
+          cuatro: this.maestrosss[i].materias.lunes[3],
+          cinco: this.maestrosss[i].materias.lunes[4],
+          seis: this.maestrosss[i].materias.lunes[5],
+          siete: this.maestrosss[i].materias.lunes[6],
+          unoa: this.maestrosss[i].materias.martes[0],
+          dosa: this.maestrosss[i].materias.martes[1],
+          tresa: this.maestrosss[i].materias.martes[2],
+          cuatroa: this.maestrosss[i].materias.martes[3],
+          cincoa: this.maestrosss[i].materias.martes[4],
+          seisa: this.maestrosss[i].materias.martes[5],
+          sietea: this.maestrosss[i].materias.martes[6],
+          unob: this.maestrosss[i].materias.miercoles[0],
+          dosb:  this.maestrosss[i].materias.miercoles[1],
+          tresb:  this.maestrosss[i].materias.miercoles[2],
+          cuatrob:  this.maestrosss[i].materias.miercoles[3] ,
+          cincob:  this.maestrosss[i].materias.miercoles[4] ,
+          seisb:  this.maestrosss[i].materias.miercoles[5] ,
+          sieteb:  this.maestrosss[i].materias.miercoles[6],
+          unoc:  this.maestrosss[i].materias.jueves[0],
+          dosc: this.maestrosss[i].materias.jueves[1],
+          tresc: this.maestrosss[i].materias.jueves[2],
+          cuatroc: this.maestrosss[i].materias.jueves[3],
+          cincoc:this.maestrosss[i].materias.jueves[4],
+          seisc: this.maestrosss[i].materias.jueves[5],
+          sietec: this.maestrosss[i].materias.jueves[6],
+          unod: this.maestrosss[i].materias.viernes[0],
+          dosd:this.maestrosss[i].materias.viernes[1],
+          tresd: this.maestrosss[i].materias.viernes[2],
+          cuatrod: this.maestrosss[i].materias.viernes[3],
+          cincod: this.maestrosss[i].materias.viernes[4],
+          seisd: this.maestrosss[i].materias.viernes[5],
+          sieted: this.maestrosss[i].materias.viernes[6],
+        },
+        asignatura:this.maestrosss[i].asignatura,
+        nombre:this.maestrosss[i].nombre
+      })
+    }
+
+    console.log(this.users);
+    console.log(topfes);
+
+
+
+
 
     const edata: Array<any> = [];
     const udt: any = {
@@ -256,9 +242,9 @@ export class InicioComponent implements OnInit {
       ],
       skipHeader: true
     };
-    this.users.forEach(user => {
+    topfes.forEach(user => {
       udt.data.push({
-        A: user.id,
+        A: user.nombre,
         B: user.firstName.uno,
         C: user.firstName.dos,
         D: user.firstName.tres,
@@ -307,6 +293,7 @@ export class InicioComponent implements OnInit {
       ],
       skipHeader: true
     };
+
     /*this.users.forEach(user => {
       bd.data.push({
         A: String(user.id),
@@ -317,6 +304,7 @@ export class InicioComponent implements OnInit {
     });*/
     //edata.push(bd);
     this.exportService.exportJsonToExcel(edata, 'user_data_customized');
+
   }
 
   exportToCsv(): void {
@@ -327,6 +315,10 @@ export class InicioComponent implements OnInit {
     //this.profesorService.eliminar().then(()=>{console.log("bien");
     this.profesorService.eliminar()
     //})
+  }
+
+  cargar(){
+    console.log(this.mal);
   }
 
 }
