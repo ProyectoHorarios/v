@@ -9,6 +9,7 @@ import { GruposComponent } from '../grupos/grupos.component';
 import { HporprofesorComponent } from './hporprofesor/hporprofesor.component';
 import { EliminarComponent } from './eliminar/eliminar.component';
 import { ApiInfoService } from 'src/app/services/api-info.service';
+import Swal from 'sweetalert2';
 
 
 export interface PeriodicElement {
@@ -258,7 +259,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
             timeOut: 4000,
           })
          }else{
-          //console.log(maestro);
           let horasTotales = 0
           for (let i = 0; i < maestro.length; i++) {
             horasTotales += maestro[i].horas;
@@ -394,8 +394,305 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
             return
           }
           if (maestro.length === 6){
-            console.log("se puede");
-            return
+            Swal.fire({
+              title: 'Deseas que todos los maestros tengan grupos?',
+              text: "Si la respuesta es no el ultimo  profesor de la cadena se genera con horas lectivas.",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'Exito',
+                  'Todos los maestros tienen grupos!',
+                  'success'
+                )
+
+                if (horasTotales >= 75) {
+
+                  this.toastr.success(`Se cargaron 5 elementos`, 'Exito', {
+                    timeOut: 4000,
+                  });
+                  let pasan:any = [""]
+                  for (let o = 0; o < maestro.length; o++) {
+                    if (maestro[o].horas < 5 ) {
+                      pasan.push({
+                         0: maestro[o].horas,
+                         1:1+o
+                      })
+                    }
+                  }
+                  if (pasan == "") {
+                      let arr:any = []
+                      let asignacion = [2,2,2,3,3,3]
+                       let split = asignacion.sort()
+                      let orden:any = []
+                      let  datosst:any = []
+                      for (let v = 0; v < maestro.length; v++) {
+                        orden.push({
+                          horas:parseFloat((maestro[v].horas/5).toFixed(0)),
+                          id:maestro[v].id,
+                          hor:maestro[v].horas
+                        })
+                      }
+                      const maestrosOrdenados = orden.sort((a:any, b:any) => a.horas - b.horas)
+                      for (let g = 0; g < maestrosOrdenados.length; g++) {
+                        if (maestrosOrdenados[g].horas <= 1 ) {
+                          this.toastr.error(`No se puede ejecutar la operacion,
+                                               no puede haber menos de 15 horas en un
+                                               profesor`, 'Error!', {
+                              timeOut: 4000,
+                            })
+                            return
+                        }
+                      }
+                      for (let a = 0; a < orden.length; a++) {
+                        if (parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 === 0) {
+                          datosst.push({
+                            s:orden[a].horas,
+                            horas:orden[a].hor,
+                            id:orden[a].id,
+                            se: 0,
+                            tutoria: 0
+                          })
+                        }else{
+                          datosst.push({
+                            s:orden[a].horas,
+                            horas:orden[a].hor,
+                            id:orden[a].id,
+                            se: parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 - 1,
+                            tutoria: 1
+                          })
+                        }
+                      }
+                      let nio:any=[]
+                      for (let z = 0; z < maestrosOrdenados.length; z++) {
+                        if (maestrosOrdenados[z].horas  >= split[z]) {
+                          nio.push({status:true})
+                        }else{
+                          this.toastr.error(`No se pudo ejecutar. El algoritmo de los grupos no cuadran con las horas`, 'Error!', {
+                            timeOut: 4000,
+                          })
+                          return
+                        }
+                      }
+                      let incertar:any =  {
+                                        0:{
+                                          lunes: ["3E","","2E","","","",""],
+                                          martes:["3E","","2E","","","",""],
+                                          miercoles:["3E","2E","","","","",""],
+                                          jueves:["3E","2E","","","","",""],
+                                          viernes:["2E","3E","","","","",""]
+                                        },
+                                        1:{
+                                          lunes: ["","","","1C","","","1D"],
+                                          martes:["","","1C","","","1D",""],
+                                          miercoles:["","","","","1C","1D",""],
+                                          jueves:["","","","1C","1D","",""],
+                                          viernes:["","","","1D","","1C"]
+                                        },
+                                        2:{
+                                          lunes: ["","","","","1E","","3A"],
+                                          martes:["","","","","3A","","1E"],
+                                          miercoles:["","3A","","","","","1E"],
+                                          jueves:["","","3A","","","1E",""],
+                                          viernes:["","","3A","","1E","",""]
+                                        },
+                                        3:{
+                                          lunes: ["","1A","","1B","2D","",""],
+                                          martes:["","","1A","","1B","",""],
+                                          miercoles:["","","","1B","","1A","2D"],
+                                          jueves:["","","","","","1B","1A"],
+                                          viernes:["","","","1B","1A","2D",""]
+                                        },
+                                        4:{
+                                          lunes: ["","2B","2C","2A","","",""],
+                                          martes:["2B","2A","","2C","","",""],
+                                          miercoles:["","","","","2C","2A","2B"],
+                                          jueves:["2A","2C","2B","","","",""],
+                                          viernes:["2B","2C","2A","","","",""]
+                                        },
+                                        5:{
+                                          lunes: ["","","3C","3D","","3B",""],
+                                          martes:["3D","3B","","3C","","",""],
+                                          miercoles:["3C","","3D","3B","","",""],
+                                          jueves:["","","","3B","","3C","3D"],
+                                          viernes:["3D","3B","","3C","","",""]
+                                        },
+
+                                      }
+                      for (let c = 0; c < maestrosOrdenados.length; c++) {
+                        this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
+                      }
+                      this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                        timeOut: 4000,
+                      });
+                  }else{
+                    this.toastr.error(`En alguna posicion tienes menos de 5 horas`, 'Error!', {
+                      timeOut: 4000,
+                    })
+                  }
+                }else{
+                  this.toastr.error(` No se puede hacer la ejecucion, la suma es ${horasTotales} horas, tienen que ser mas de 75 horas`, 'Error', {
+                    timeOut: 4000,
+                  })
+                }
+
+              }else{
+                this.toastr.info(`Se genero un maestro con horas lectivas`, 'Bien!', {
+                  timeOut: 4000,
+                })
+
+
+                if (horasTotales >= 75) {
+
+                  this.toastr.success(`Se cargaron 5 elementos`, 'Exito', {
+                    timeOut: 4000,
+                  });
+                  let pasan:any = [""]
+                  for (let o = 0; o < maestro.length; o++) {
+                    if (maestro[o].horas < 5 ) {
+                      pasan.push({
+                         0: maestro[o].horas,
+                         1:1+o
+                      })
+                    }
+                  }
+                  if (pasan == "") {
+                      let arr:any = []
+                      let asignacion = [2,2,2,3,3,3]
+                       let split = asignacion.sort()
+                      let orden:any = []
+                      let  datosst:any = []
+                      for (let v = 0; v < maestro.length; v++) {
+                        orden.push({
+                          horas:parseFloat((maestro[v].horas/5).toFixed(0)),
+                          id:maestro[v].id,
+                          hor:maestro[v].horas
+                        })
+                      }
+                      const maestrosOrdenados = orden.sort((a:any, b:any) => a.horas - b.horas)
+                      for (let g = 0; g < maestrosOrdenados.length; g++) {
+                        if (maestrosOrdenados[g].horas <= 1 ) {
+                          this.toastr.error(`No se puede ejecutar la operacion,
+                                               no puede haber menos de 15 horas en un
+                                               profesor`, 'Error!', {
+                              timeOut: 4000,
+                            })
+                            return
+                        }
+                      }
+                      for (let a = 0; a < orden.length; a++) {
+                        if (parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 === 0) {
+                          datosst.push({
+                            s:orden[a].horas,
+                            horas:orden[a].hor,
+                            id:orden[a].id,
+                            se: 0,
+                            tutoria: 0
+                          })
+                        }else{
+                          datosst.push({
+                            s:orden[a].horas,
+                            horas:orden[a].hor,
+                            id:orden[a].id,
+                            se: parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 - 1,
+                            tutoria: 1
+                          })
+                        }
+                      }
+                      let nio:any=[]
+                      for (let z = 0; z < maestrosOrdenados.length; z++) {
+                        if (maestrosOrdenados[z].horas  >= split[z]) {
+                          nio.push({status:true})
+                        }else{
+                          this.toastr.error(`No se pudo ejecutar. El algoritmo de los grupos no cuadran con las horas`, 'Error!', {
+                            timeOut: 4000,
+                          })
+                          return
+                        }
+                      }
+
+                      console.log(maestrosOrdenados);
+
+
+                      let incertar:any =  {
+                                        0:{
+                                          lunes: ["3E","","2E","","","",""],
+                                          martes:["3E","","2E","","","",""],
+                                          miercoles:["3E","2E","","","","",""],
+                                          jueves:["3E","2E","","","","",""],
+                                          viernes:["2E","3E","","","","",""]
+                                        },
+                                        1:{
+                                          lunes: ["","1A","","1B","2D","",""],
+                                          martes:["","","1A","","1B","",""],
+                                          miercoles:["","","","1B","","1A","2D"],
+                                          jueves:["","","","","","1B","1A"],
+                                          viernes:["","","","1B","1A","2D",""]
+                                        },
+                                        2:{
+                                          lunes: ["","","","","","",""],
+                                          martes:["","","","","","",""],
+                                          miercoles:["","","","","","",""],
+                                          jueves:["","","","","","",""],
+                                          viernes:["","","","","","",""]
+                                        },
+
+                                        3:{
+                                          lunes: ["","2B","2C","2A","","",""],
+                                          martes:["2B","2A","","2C","","",""],
+                                          miercoles:["","","","","2C","2A","2B"],
+                                          jueves:["2A","2C","2B","","","",""],
+                                          viernes:["2B","2C","2A","","","",""]
+
+                                        },
+                                        4:{
+                                          lunes: ["","","","1C","1E","","1D"],
+                                          martes:["","","1C","","","1D","1E"],
+                                          miercoles:["","","","","1C","1D","1E"],
+                                          jueves:["","","","1C","1D","1E",""],
+                                          viernes:["","","","1D","1E","1C"]
+
+                                        },
+                                        5:{
+                                          lunes: ["","","3C","3D","","3B","3A"],
+                                          martes:["3D","3B","","3C","3A","",""],
+                                          miercoles:["3C","3A","3D","3B","","",""],
+                                          jueves:["","","3A","3B","","3C","3D"],
+                                          viernes:["3D","3B","3A","3C","","",""]
+                                        },
+
+                                      }
+                      for (let c = 0; c < maestrosOrdenados.length; c++) {
+                        this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
+                      }
+                      this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                        timeOut: 4000,
+                      });
+                  }else{
+                    this.toastr.error(`En alguna posicion tienes menos de 5 horas`, 'Error!', {
+                      timeOut: 4000,
+                    })
+                  }
+                }else{
+                  this.toastr.error(` No se puede hacer la ejecucion, la suma es ${horasTotales} horas, tienen que ser mas de 75 horas`, 'Error', {
+                    timeOut: 4000,
+                  })
+                }
+
+
+
+
+              }
+            })
+          }
+          if (maestro.length >= 7){
+            this.toastr.error(`¡Lo sentimos!. Aún no hay un algoritmo de 7 o más profesores.`, 'Error', {
+              timeOut: 4000,
+            })
           }
          }
   }
@@ -543,6 +840,281 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
             return
           }
 
+          if (maestro.length === 5) {
+            Swal.fire({
+              title: 'Deseas que todos los maestros tengan grupos?',
+              text: "Si la respuesta es no el ultimo  profesor de la cadena se genera con horas lectivas.",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si'
+            }).then((result) => {
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'Exito',
+                  'Todos los maestros tienen grupos!',
+                  'success'
+                )
+
+                if (horasTotales >= 75) {
+                  this.toastr.success(`Se cargaron 5 elementos`, 'Exito', {
+                    timeOut: 4000,
+                  });
+                  let pasan:any = [""]
+                  for (let o = 0; o < maestro.length; o++) {
+                    if (maestro[o].horas < 5 ) {
+                      pasan.push({
+                         0: maestro[o].horas,
+                         1:1+o
+                      })
+                    }
+                  }
+                  if (pasan == "") {
+                    let arr:any = []
+                      let asignacion = [2,2,5,3,3]
+                       let split = asignacion.sort()
+                      let orden:any = []
+                      let  datosst:any = []
+                      for (let v = 0; v < maestro.length; v++) {
+                        orden.push({
+                          horas:parseFloat((maestro[v].horas/5).toFixed(0)),
+                          id:maestro[v].id,
+                          hor:maestro[v].horas
+                        })
+                      }
+                      const maestrosOrdenados = orden.sort((a:any, b:any) => a.horas - b.horas)
+                      for (let g = 0; g < maestrosOrdenados.length; g++) {
+                        if (maestrosOrdenados[g].horas <= 1 ) {
+                          this.toastr.error(`No se puede ejecutar la operacion,
+                                               no puede haber menos de 15 horas en un
+                                               profesor`, 'Error!', {
+                              timeOut: 4000,
+                            })
+                            return
+                        }
+                      }
+                      for (let a = 0; a < orden.length; a++) {
+                        if (parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 === 0) {
+                          datosst.push({
+                            s:orden[a].horas,
+                            horas:orden[a].hor,
+                            id:orden[a].id,
+                            se: 0,
+                            tutoria: 0
+                          })
+                        }else{
+                          datosst.push({
+                            s:orden[a].horas,
+                            horas:orden[a].hor,
+                            id:orden[a].id,
+                            se: parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 - 1,
+                            tutoria: 1
+                          })
+                        }
+                      }
+                      let nio:any=[]
+                      for (let z = 0; z < maestrosOrdenados.length; z++) {
+                        if (maestrosOrdenados[z].horas  >= split[z]) {
+                          nio.push({status:true})
+                        }else{
+                          this.toastr.error(`No se pudo ejecutar. El algoritmo de los grupos no cuadran con las horas`, 'Error!', {
+                            timeOut: 4000,
+                          })
+                          return
+                        }
+                      }
+                      let incertar:any =  {
+                        0:{
+                          lunes: ["2D","","1A","","","",""],
+                          martes:["1A","2D","","","","",""],
+                          miercoles:["","","","1A","","2D",""],
+                          jueves:["1A","","2D","","","",""],
+                          viernes:["1A","","2D","","","",""]
+                        },
+                        1:{
+                          lunes: ["","","1D","","3C","",""],
+                          martes:["","1D","","","3C","",""],
+                          miercoles:["","","","3C","","","1D"],
+                          jueves:["1D","","","3C","","",""],
+                          viernes:["","","","1D","3C","",""]
+                        },
+                        2:{
+                          lunes: ["2B","2C","","","","",""],
+                          martes:["","2B","2C","","","",""],
+                          miercoles:["2B","","2C","","","",""],
+                          jueves:["2C","2B","","","","",""],
+                          viernes:["2B","","2C","","","",""]
+                        },
+                        3:{
+                          lunes: ["1B","1C","","1E","","",""],
+                          martes:["1C","","1E","1B","","",""],
+                          miercoles:["","","","1C","1B","1E",""],
+                          jueves:["","1C","1B","1E","","",""],
+                          viernes:["1E","1B","1C","","","",""]
+                        },
+
+                        4:{
+                          lunes: ["","2E","3A","3B","","3D","3E"],
+                          martes:["2E","","3B","3A","","3E","3D"],
+                          miercoles:["","3B","3A","","3D","3E","2E"],
+                          jueves:["2E","3E","","","3D","3B","3A"],
+                          viernes:["3D","3D","","2E","","3A","3B"]
+                        }
+
+                      }
+                  for (let c = 0; c < maestrosOrdenados.length; c++) {
+                    this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
+                  }
+                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                    timeOut: 4000,
+                  });
+                  }else{
+                    this.toastr.error(`En alguna posicion tienes menos de 5 horas`, 'Error!', {
+                      timeOut: 4000,
+                    })
+                  }
+                }else{
+                  this.toastr.error(` No se puede hacer la ejecucion, la suma es ${horasTotales} horas, tienen que ser mas de 75 horas`, 'Error', {
+                    timeOut: 4000,
+                  })
+                }
+
+              }else{
+                if (horasTotales >= 75) {
+                  this.toastr.success(`Se cargaron 5 elementos`, 'Exito', {
+                    timeOut: 4000,
+                  });
+                  let pasan:any = [""]
+                  for (let o = 0; o < maestro.length; o++) {
+                    if (maestro[o].horas < 5 ) {
+                      pasan.push({
+                         0: maestro[o].horas,
+                         1:1+o
+                      })
+                    }
+                  }
+                  if (pasan == "") {
+                    let arr:any = []
+                      let asignacion = [2,2,5,3,3]
+                       let split = asignacion.sort()
+                      let orden:any = []
+                      let  datosst:any = []
+                      for (let v = 0; v < maestro.length; v++) {
+                        orden.push({
+                          horas:parseFloat((maestro[v].horas/5).toFixed(0)),
+                          id:maestro[v].id,
+                          hor:maestro[v].horas
+                        })
+                      }
+                      const maestrosOrdenados = orden.sort((a:any, b:any) => a.horas - b.horas)
+                      for (let g = 0; g < maestrosOrdenados.length; g++) {
+                        if (maestrosOrdenados[g].horas <= 1 ) {
+                          this.toastr.error(`No se puede ejecutar la operacion,
+                                               no puede haber menos de 15 horas en un
+                                               profesor`, 'Error!', {
+                              timeOut: 4000,
+                            })
+                            return
+                        }
+                      }
+                      for (let a = 0; a < orden.length; a++) {
+                        if (parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 === 0) {
+                          datosst.push({
+                            s:orden[a].horas,
+                            horas:orden[a].hor,
+                            id:orden[a].id,
+                            se: 0,
+                            tutoria: 0
+                          })
+                        }else{
+                          datosst.push({
+                            s:orden[a].horas,
+                            horas:orden[a].hor,
+                            id:orden[a].id,
+                            se: parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 - 1,
+                            tutoria: 1
+                          })
+                        }
+                      }
+                      let nio:any=[]
+                      for (let z = 0; z < maestrosOrdenados.length; z++) {
+                        if (maestrosOrdenados[z].horas  >= split[z]) {
+                          nio.push({status:true})
+                        }else{
+                          this.toastr.error(`No se pudo ejecutar. El algoritmo de los grupos no cuadran con las horas`, 'Error!', {
+                            timeOut: 4000,
+                          })
+                          return
+                        }
+                      }
+                      let incertar:any =  {
+                        0:{
+                          lunes: ["2D","","1A","","","",""],
+                          martes:["1A","2D","","","","",""],
+                          miercoles:["","","","1A","","2D",""],
+                          jueves:["1A","","2D","","","",""],
+                          viernes:["1A","","2D","","","",""]
+                        },
+                        1:{
+                          lunes: ["","","","","","",""],
+                          martes:["","","","","","",""],
+                          miercoles:["","","","","","",""],
+                          jueves:["","","","","","",""],
+                          viernes:["","","","","","",""]
+                        },
+                        2:{
+                          lunes: ["2B","2C","","","","",""],
+                          martes:["","2B","2C","","","",""],
+                          miercoles:["2B","","2C","","","",""],
+                          jueves:["2C","2B","","","","",""],
+                          viernes:["2B","","2C","","","",""]
+                        },
+                        3:{
+                          lunes: ["1B","1C","1D","1E","","",""],
+                          martes:["1C","1D","1E","1B","","",""],
+                          miercoles:["","","","1C","1B","1E","1D"],
+                          jueves:["1D","1C","1B","1E","","",""],
+                          viernes:["1E","1B","1C","1D","","",""]
+                        },
+
+                        4:{
+                          lunes: ["","2E","3A","3B","3C","3D","3E"],
+                          martes:["2E","","3B","3A","3C","3E","3D"],
+                          miercoles:["","3B","3A","3C","3D","3E","2E"],
+                          jueves:["2E","3E","","3C","3D","3B","3A"],
+                          viernes:["3D","3D","","2E","3C","3A","3B"]
+                        }
+
+                      }
+                  for (let c = 0; c < maestrosOrdenados.length; c++) {
+                    this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
+                  }
+                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                    timeOut: 4000,
+                  });
+                  }else{
+                    this.toastr.error(`En alguna posicion tienes menos de 5 horas`, 'Error!', {
+                      timeOut: 4000,
+                    })
+                  }
+                }else{
+                  this.toastr.error(` No se puede hacer la ejecucion, la suma es ${horasTotales} horas, tienen que ser mas de 75 horas`, 'Error', {
+                    timeOut: 4000,
+                  })
+                }
+
+              }
+            })
+
+          }
+
+          if (maestro.length >= 6) {
+            this.toastr.error(`¡Lo sentimos!. Aún no hay un algoritmo de 6 o más profesores.`, 'Error', {
+              timeOut: 4000,
+            })
+          }
+
      }
 
   }
@@ -661,6 +1233,9 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                     }
 
                   }
+
+                  console.log(datosst);
+
               for (let c = 0; c < maestrosOrdenados.length; c++) {
                 this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
               }
