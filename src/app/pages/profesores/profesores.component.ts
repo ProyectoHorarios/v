@@ -178,7 +178,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
   DataFromEventEmitter(data: any) {
 
 
-
+    this.loaading = true;
     if (data[0].Nombre) {
       if (data[0].Horas) {
         if (data[0].Clave) {
@@ -209,11 +209,65 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                       if (data[i].Asignatura.toUpperCase() === asignaturas[t] ) {
                         if (data[i].Horas <= 40 && data[i].Horas > 0) {
                           if (data[i].Preferencia.toUpperCase() === 'NO'|| data[i].Preferencia.toUpperCase() === 'MAÑANA' || data[i].Preferencia.toUpperCase() === 'TARDE') {
-                            espa.push(data[i]);
+
+                            let pref = '';
+                            if (data[i].Preferencia.toUpperCase() === 'NO') {
+                              pref = 'No importa';
+                            }
+                            if (data[i].Preferencia.toUpperCase() === 'MAÑANA') {
+                              pref = 'Temprano';
+                            }
+                            if (data[i].Preferencia.toUpperCase() === 'TARDE') {
+                              pref = 'Tarde';
+                            }
+
+                            /// corregir el toUpperCase() de las asignaturas
+                            let asigdos = ''
+                            let asigtres = ''
+                            if (data[i].Asignatura_Dos === 'null') {
+                              asigdos = ''
+                            }else{
+                              asigdos = data[i].Asignatura_Dos
+                            }
+                            if (data[i].Asignatura_Dos === 'null') {
+                              asigtres = ''
+                            }else{
+                              asigtres = data[i].Asignatura_Dos
+                            }
+
+                            let clave = ''
+                            if (data[i].Clave === 'null') {
+                              clave = ''
+                            }else{
+                              clave = data[i].Clave
+                            }
+
+                            let asig = data[i].Asignatura.toUpperCase()
+
+                            espa.push({
+                              nombre: data[i].Nombre,
+                              horas: data[i].Horas,
+                              Clave: clave,
+                              asignatura: asig,
+                              asignaturaDos: asigdos,
+                              asignaturaTres: asigtres,
+                              preferencia: pref,
+                              tutoria:'',
+                              se:'',
+                              materias:{
+                                lunes: ["","","","","","",""],
+                                martes:["","","","","","",""],
+                                miercoles:["","","","","","",""],
+                                jueves:["","","","","","",""],
+                                viernes:["","","","","","",""]
+                              }
+                            })
+
                           }else{
                             this.toastr.error(`Error con ${data[i].Nombre} Tienes un error en Preferencia`, 'Error', {
                               timeOut: 4000,
                             })
+                            this.loaading = false;
                             return
                           }
 
@@ -221,28 +275,29 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                           this.toastr.error(`Error con ${data[i].Nombre} La horas tienen que ser menor o igual a 40 o mayor a 0`, 'Error', {
                             timeOut: 4000,
                           })
+                          this.loaading = false;
                           return
                         }
                       }
 
                     }
-/**
-                    if (data[i].Asignatura.toUpperCase() === 'ESPAÑOL' ) {
-                      if (data[i].Horas <= 40 && data[i].Horas > 0) {
-                        espa.push(data[i]);
-                      }else{
-                        this.toastr.error(`Error con ${data[i].Nombre} La horas tienen que ser menor o igual a 40 o mayor a 0`, 'Error', {
-                          timeOut: 4000,
-                        })
-                        return
-                      }
-                    }
-                    if (data[i].Asignatura.toUpperCase() === 'MATEMATICAS' ) {
-                      mate.push(data[i])
-                    }*/
                   }
-                  console.log(espa);
-                  //console.log(mate);
+
+                  for (let i = 0; i < espa.length; i++) {
+                    this.profesorService.agregarProfesor(espa[i]).then(()=>{
+                      if(i == (espa.length - 1)){
+                        this.toastr.success(` Se registro con exito, ${espa.length} profesores con sus horas y asignaturas!`, 'Exito', {
+                          timeOut: 4000,
+                        });
+                        this.loaading = false;
+                      }
+                  }).catch(err=>{
+                    this.toastr.error(' Error!', 'Error', {
+                        timeOut: 4000,
+                      })
+                      this.loaading = false;
+                    });
+                }
 
 
 
@@ -250,36 +305,43 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   this.toastr.error(`Modifico la plantilla en Preferencia. `, 'Error', {
                     timeOut: 4000,
                   })
+                  this.loaading = false;
                 }
               }else{
                 this.toastr.error(`Modifico la plantilla en Asignatura_Tres. `, 'Error', {
                   timeOut: 4000,
                 })
+                this.loaading = false;
               }
             }else{
               this.toastr.error(`Modifico la plantilla en Asignatura_Dos. `, 'Error', {
                 timeOut: 4000,
               })
+              this.loaading = false;
             }
           }else{
             this.toastr.error(`Modifico la plantilla en Asignatura. `, 'Error', {
               timeOut: 4000,
             })
+            this.loaading = false;
           }
         }else{
           this.toastr.error(`Modifico la plantilla en Clave. `, 'Error', {
             timeOut: 4000,
           })
+          this.loaading = false;
         }
       }else{
         this.toastr.error(`Modifico la plantilla en Horas. `, 'Error', {
           timeOut: 4000,
         })
+        this.loaading = false;
       }
     }else{
       this.toastr.error(`Modifico la plantilla en nombre. `, 'Error', {
         timeOut: 4000,
       })
+      this.loaading = false;
     }
 
 
