@@ -177,7 +177,114 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   DataFromEventEmitter(data: any) {
 
-    this.loaading = true;
+
+
+    if (data[0].Nombre) {
+      if (data[0].Horas) {
+        if (data[0].Clave) {
+          if (data[0].Asignatura) {
+            if (data[0].Asignatura_Dos) {
+              if (data[0].Asignatura_Tres) {
+                if (data[0].Preferencia) {
+
+                  let espa = [];
+                  let mate = [];
+                  for (let i = 0; i < data.length; i++) {
+
+                    let asignaturas = [
+                      "ESPAÑOL",
+                      "MATEMATICAS",
+                      "CIENCIAS",
+                      "INGLES",
+                      "MUSICA",
+                      "FORMACION CIVICA Y ETICA",
+                      "VIDA SALUDABLE",
+                      "EDUCACION FISICA",
+                      "GEOGRAFIA",
+                      "HISTORIA"
+                    ]
+
+                    for (let t = 0; t < asignaturas.length; t++) {
+
+                      if (data[i].Asignatura.toUpperCase() === asignaturas[t] ) {
+                        if (data[i].Horas <= 40 && data[i].Horas > 0) {
+                          if (data[i].Preferencia.toUpperCase() === 'NO'|| data[i].Preferencia.toUpperCase() === 'MAÑANA' || data[i].Preferencia.toUpperCase() === 'TARDE') {
+                            espa.push(data[i]);
+                          }else{
+                            this.toastr.error(`Error con ${data[i].Nombre} Tienes un error en Preferencia`, 'Error', {
+                              timeOut: 4000,
+                            })
+                            return
+                          }
+
+                        }else{
+                          this.toastr.error(`Error con ${data[i].Nombre} La horas tienen que ser menor o igual a 40 o mayor a 0`, 'Error', {
+                            timeOut: 4000,
+                          })
+                          return
+                        }
+                      }
+
+                    }
+/**
+                    if (data[i].Asignatura.toUpperCase() === 'ESPAÑOL' ) {
+                      if (data[i].Horas <= 40 && data[i].Horas > 0) {
+                        espa.push(data[i]);
+                      }else{
+                        this.toastr.error(`Error con ${data[i].Nombre} La horas tienen que ser menor o igual a 40 o mayor a 0`, 'Error', {
+                          timeOut: 4000,
+                        })
+                        return
+                      }
+                    }
+                    if (data[i].Asignatura.toUpperCase() === 'MATEMATICAS' ) {
+                      mate.push(data[i])
+                    }*/
+                  }
+                  console.log(espa);
+                  //console.log(mate);
+
+
+
+                }else{
+                  this.toastr.error(`Modifico la plantilla en Preferencia. `, 'Error', {
+                    timeOut: 4000,
+                  })
+                }
+              }else{
+                this.toastr.error(`Modifico la plantilla en Asignatura_Tres. `, 'Error', {
+                  timeOut: 4000,
+                })
+              }
+            }else{
+              this.toastr.error(`Modifico la plantilla en Asignatura_Dos. `, 'Error', {
+                timeOut: 4000,
+              })
+            }
+          }else{
+            this.toastr.error(`Modifico la plantilla en Asignatura. `, 'Error', {
+              timeOut: 4000,
+            })
+          }
+        }else{
+          this.toastr.error(`Modifico la plantilla en Clave. `, 'Error', {
+            timeOut: 4000,
+          })
+        }
+      }else{
+        this.toastr.error(`Modifico la plantilla en Horas. `, 'Error', {
+          timeOut: 4000,
+        })
+      }
+    }else{
+      this.toastr.error(`Modifico la plantilla en nombre. `, 'Error', {
+        timeOut: 4000,
+      })
+    }
+
+
+    //this.loaading = true;
+    /**
     for (let i = 0; i < data.length; i++) {
       this.profesorService.agregarProfesor(data[i]).then(()=>{
         if(i == (data.length - 1)){
@@ -193,7 +300,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
         this.loaading = false;
       });
   }
-
+ */
 
     /*
     this.profesorService.agregarProfesor(data).then(()=>{
@@ -1253,6 +1360,32 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
               })
             }
 
+
+          }
+          if (maestro.length === 5) {
+            Swal.fire({
+              title: 'Deseas que todos los maestros tengan grupos?',
+              text: "Si la respuesta es no el ultimo  profesor de la cadena se genera con horas lectivas.",
+              icon: 'warning',
+              showCancelButton: true,
+              confirmButtonColor: '#3085d6',
+              cancelButtonColor: '#d33',
+              confirmButtonText: 'Si'
+            }).then((result) => {
+              console.log("manuel");
+
+              if (result.isConfirmed) {
+                Swal.fire(
+                  'Exito',
+                  'Todos los maestros tienen grupos!',
+                  'success'
+                )
+              }else{
+                console.log("mani");
+
+              }
+
+            })
 
           }
           if (maestro.length === 3 || maestro.length === 2 ){

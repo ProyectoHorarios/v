@@ -136,6 +136,9 @@ export class DialogoComponent implements OnInit {
 
         console.log(res.payload.data());
 
+        console.log(res.payload.data()['materias']);
+
+
         this.loaading =false;
         this.registro.setValue({
           nombre: res.payload.data()['nombre'],
@@ -147,7 +150,7 @@ export class DialogoComponent implements OnInit {
           preferencia: res.payload.data()['preferencia'],
           tutoria:'',
           se:'',
-          materias: this.registro.value.materias
+          materias: res.payload.data()['materias']
 
         })
         console.log(this.registro.value);
