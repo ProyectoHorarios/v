@@ -3784,6 +3784,224 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
 
   }
 
+  aceptarHis(){
+
+    let maestro:any = []
+    for (let q = 0; q < this.maestroEspañol.length; q++) {
+     if (this.maestroEspañol[q].asignatura === "HISTORIA") {
+       maestro.push(this.maestroEspañol[q])
+     }
+    }
+
+    if (maestro.length === 0 ) {
+     this.toastr.error(' Error!', 'Tienes que colocar 3 Profesores ', {
+       timeOut: 4000,
+     })
+    }else{
+     //console.log(maestro);
+     let horasTotales = 0
+     for (let i = 0; i < maestro.length; i++) {
+       horasTotales += maestro[i].horas;
+     }
+     if (maestro.length === 1) {
+       if (horasTotales >= 30) {
+
+         this.toastr.success(`Se cargaron 1 elementos`, 'Exito', {
+           timeOut: 4000,
+         });
+         let pasan:any = [""]
+         for (let o = 0; o < maestro.length; o++) {
+           if (maestro[o].horas < 5 ) {
+             pasan.push({
+                0: maestro[o].horas,
+                1:1+o
+             })
+           }
+         }
+         if (pasan == "") {
+             let arr:any = []
+             let asignacion = [15]
+              let split = asignacion.sort()
+             let orden:any = []
+             let  datosst:any = []
+             for (let v = 0; v < maestro.length; v++) {
+               orden.push({
+                 horas:parseFloat((maestro[v].horas/3).toFixed(0)),
+                 id:maestro[v].id,
+                 hor:maestro[v].horas
+               })
+             }
+             const maestrosOrdenados = orden.sort((a:any, b:any) => a.horas - b.horas)
+             for (let g = 0; g < maestrosOrdenados.length; g++) {
+               if (maestrosOrdenados[g].horas <= 1 ) {
+                 this.toastr.error(`No se puede ejecutar la operacion,
+                                      no puede haber menos de 15 horas en un
+                                      profesor`, 'Error!', {
+                     timeOut: 4000,
+                   })
+                   return
+               }
+             }
+             for (let a = 0; a < orden.length; a++) {
+               if (parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 === 0) {
+                 datosst.push({
+                   s:orden[a].horas,
+                   horas:orden[a].hor,
+                   id:orden[a].id,
+                   se: 0,
+                   tutoria: 0
+                 })
+               }else{
+                 datosst.push({
+                   s:orden[a].horas,
+                   horas:orden[a].hor,
+                   id:orden[a].id,
+                   se: parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 - 1,
+                   tutoria: 1
+                 })
+               }
+             }
+
+
+             let incertar:any =  {
+                               0:{
+                                 lunes: ["","","3E","3C","3B","3A",""],
+                                 martes:["","3A","","3D","3B","3C","3E"],
+                                 miercoles:["3B","3E","3C","3D","","",""],
+                                 jueves:["","3A","","3D","3B","3E",""],
+                                 viernes:["","","","","","",""]
+                               }
+                             }
+
+
+             for (let c = 0; c < maestrosOrdenados.length; c++) {
+               this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
+             }
+             this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+               timeOut: 4000,
+             });
+         }else{
+           this.toastr.error(`En alguna posicion tienes menos de 5 horas`, 'Error!', {
+             timeOut: 4000,
+           })
+         }
+       }else{
+         this.toastr.error(` No se puede hacer la ejecucion, la suma es ${horasTotales} horas, tienen que ser mas de 75 horas`, 'Error', {
+           timeOut: 4000,
+         })
+       }
+     }
+     if (maestro.length === 2) {
+      if (horasTotales >= 30) {
+
+        this.toastr.success(`Se cargaron 1 elementos`, 'Exito', {
+          timeOut: 4000,
+        });
+        let pasan:any = [""]
+        for (let o = 0; o < maestro.length; o++) {
+          if (maestro[o].horas < 5 ) {
+            pasan.push({
+               0: maestro[o].horas,
+               1:1+o
+            })
+          }
+        }
+        if (pasan == "") {
+            let arr:any = []
+            let asignacion = [8,7]
+             let split = asignacion.sort()
+            let orden:any = []
+            let  datosst:any = []
+            for (let v = 0; v < maestro.length; v++) {
+              orden.push({
+                horas:parseFloat((maestro[v].horas/3).toFixed(0)),
+                id:maestro[v].id,
+                hor:maestro[v].horas
+              })
+            }
+            const maestrosOrdenados = orden.sort((a:any, b:any) => a.horas - b.horas)
+            for (let g = 0; g < maestrosOrdenados.length; g++) {
+              if (maestrosOrdenados[g].horas <= 1 ) {
+                this.toastr.error(`No se puede ejecutar la operacion,
+                                     no puede haber menos de 15 horas en un
+                                     profesor`, 'Error!', {
+                    timeOut: 4000,
+                  })
+                  return
+              }
+            }
+            for (let a = 0; a < orden.length; a++) {
+              if (parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 === 0) {
+                datosst.push({
+                  s:orden[a].horas,
+                  horas:orden[a].hor,
+                  id:orden[a].id,
+                  se: 0,
+                  tutoria: 0
+                })
+              }else{
+                datosst.push({
+                  s:orden[a].horas,
+                  horas:orden[a].hor,
+                  id:orden[a].id,
+                  se: parseFloat((orden[a].hor/5 - split[a]).toFixed(1))*5 - 1,
+                  tutoria: 1
+                })
+              }
+            }
+
+
+            let incertar:any =  {
+                              0:{
+                                lunes: ["","","3E","3C","","",""],
+                                martes:["","","","","","3C","3E"],
+                                miercoles:["","3E","3C","","","",""],
+                                jueves:["","","","","","3E",""],
+                                viernes:["","","","","","",""]
+                              },
+                              1:{
+                                lunes: ["","","","","3B","3A",""],
+                                martes:["","3A","","3D","3B","",""],
+                                miercoles:["3B","","","3D","","",""],
+                                jueves:["","3A","","3D","3B","",""],
+                                viernes:["","","","","","",""]
+                              }
+                            }
+
+
+            for (let c = 0; c < maestrosOrdenados.length; c++) {
+              this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
+            }
+            this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+              timeOut: 4000,
+            });
+        }else{
+          this.toastr.error(`En alguna posicion tienes menos de 5 horas`, 'Error!', {
+            timeOut: 4000,
+          })
+        }
+      }else{
+        this.toastr.error(` No se puede hacer la ejecucion, la suma es ${horasTotales} horas, tienen que ser mas de 75 horas`, 'Error', {
+          timeOut: 4000,
+        })
+      }
+    }
+
+     if (maestro.length === 5 || maestro.length === 4){
+       this.toastr.error(`No hay un algoritmo que se puede ejecturar con 2,3 y 4 profesores`, 'Error!', {
+         timeOut: 4000,
+       })
+       return
+     }
+     if (maestro.length === 6){
+       console.log("se puede");
+       return
+     }
+    }
+
+
+  }
+
   aceptarVS(){
 
     let maestro:any = []

@@ -177,7 +177,7 @@
 
          <br><br>
 
-          <tr *ngIf="matematicas == []">
+          <tr >
             <th scope="row"></th>
             <td colspan="35" style="text-align: center;"><h2>Matematicas</h2></td>
           </tr>
@@ -559,6 +559,64 @@
             <td colspan="7" style="text-align: center;">Viernes</td>
           </tr>
           <tr *ngFor="let espa of music">
+            <th ><small>{{espa.nombre}}</small></th>
+            <td>{{espa.firstName.uno}}</td>
+            <td>{{espa.firstName.dos}}</td>
+            <td>{{espa.firstName.tres}}</td>
+            <td>{{espa.firstName.cuatro}}</td>
+            <td>{{espa.firstName.cinco}}</td>
+            <td>{{espa.firstName.seis}}</td>
+            <td>{{espa.firstName.siete}}</td>
+            <td>{{espa.firstName.unoa}}</td>
+            <td>{{espa.firstName.dosa}}</td>
+            <td>{{espa.firstName.tresa}}</td>
+            <td>{{espa.firstName.cuatroa}}</td>
+            <td>{{espa.firstName.cincoa}}</td>
+            <td>{{espa.firstName.seisa}}</td>
+            <td>{{espa.firstName.sietea}}</td>
+            <td>{{espa.firstName.unob}}</td>
+            <td>{{espa.firstName.dosb}}</td>
+            <td>{{espa.firstName.tresb}}</td>
+            <td>{{espa.firstName.cuatrob}}</td>
+            <td>{{espa.firstName.cincob}}</td>
+            <td>{{espa.firstName.seisb}}</td>
+            <td>{{espa.firstName.sieteb}}</td>
+            <td>{{espa.firstName.unoc}}</td>
+            <td>{{espa.firstName.dosc}}</td>
+            <td>{{espa.firstName.tresc}}</td>
+            <td>{{espa.firstName.cuatroc}}</td>
+            <td>{{espa.firstName.cincoc}}</td>
+            <td>{{espa.firstName.seisc}}</td>
+            <td>{{espa.firstName.sietec}}</td>
+            <td>{{espa.firstName.unod}}</td>
+            <td>{{espa.firstName.dosd}}</td>
+            <td>{{espa.firstName.tresd}}</td>
+            <td>{{espa.firstName.cuatrod}}</td>
+            <td>{{espa.firstName.cincod}}</td>
+            <td>{{espa.firstName.seisd}}</td>
+            <td>{{espa.firstName.sieted}}</td>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td colspan="35" style="text-align: center;"><h2>Educacion fisica</h2></td>
+          </tr>
+          <tr>
+            <th scope="col">Nombre</th>
+            <th scope="col" *ngFor="let item of [1,2,3,4,5,6,7]; let i = index ">{{i+1}}</th>
+            <th scope="col" *ngFor="let item of [1,2,3,4,5,6,7]; let i = index ">{{i+1}}</th>
+            <th scope="col" *ngFor="let item of [1,2,3,4,5,6,7]; let i = index ">{{i+1}}</th>
+            <th scope="col" *ngFor="let item of [1,2,3,4,5,6,7]; let i = index ">{{i+1}}</th>
+            <th scope="col" *ngFor="let item of [1,2,3,4,5,6,7]; let i = index ">{{i+1}}</th>
+          </tr>
+          <tr>
+            <th scope="row"></th>
+            <td colspan="7" style="text-align: center;">Lunes</td>
+            <td colspan="7" style="text-align: center;">Martes</td>
+            <td colspan="7" style="text-align: center;">Miercoles</td>
+            <td colspan="7" style="text-align: center;">Jueves</td>
+            <td colspan="7" style="text-align: center;">Viernes</td>
+          </tr>
+          <tr *ngFor="let espa of ef">
             <th ><small>{{espa.nombre}}</small></th>
             <td>{{espa.firstName.uno}}</td>
             <td>{{espa.firstName.dos}}</td>
