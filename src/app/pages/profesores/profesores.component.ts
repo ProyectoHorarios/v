@@ -2136,17 +2136,6 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                       })
                     }
                   }
-                  let nio:any=[]
-                  for (let z = 0; z < maestrosOrdenados.length; z++) {
-                    if (maestrosOrdenados[z].horas  >= split[z]) {
-                      nio.push({status:true})
-                    }else{
-                      this.toastr.error(`No se pudo ejecutar. El algoritmo de los grupos no cuadran con las horas`, 'Error!', {
-                        timeOut: 4000,
-                      })
-                      return
-                    }
-                  }
                   let incertar:any =  {
                     0:{
                       lunes: ["","","","","","",""],
