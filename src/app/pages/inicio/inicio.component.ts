@@ -150,7 +150,7 @@ export class InicioComponent implements OnInit {
 
     }
 
-    console.log(hist);
+
     this.espanol = espa
     this.matematicas = mate
     this.ciencias = cien
@@ -161,6 +161,9 @@ export class InicioComponent implements OnInit {
     this.music  = music
     this.ef  = ef
     this.vs  = vs
+
+    console.log(this.espanol);
+    console.log(this.matematicas);
 
 
       })
