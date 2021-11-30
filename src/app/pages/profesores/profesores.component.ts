@@ -2957,14 +2957,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                     console.log(maestrosOrdenados[z].horas );
 
 
-                    if (maestrosOrdenados[z].horas  >= split[z]) {
-                      nio.push({status:true})
-                    }else{
-                      this.toastr.error(`No se pudo ejecutar. El algoritmo de los grupos no cuadran con las horas`, 'Error!', {
-                        timeOut: 4000,
-                      })
-                      return
-                    }
+
                   }
                   let incertar:any =  {
                     0:{
