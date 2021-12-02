@@ -34,7 +34,7 @@ export class DialogoComponent implements OnInit {
 
   public registro = this.formB.group({
     nombre: ['', [Validators.required,]],
-    horas: ['', [Validators.required,Validators.max(40), Validators.min(0)]],
+    horas: ['', [Validators.required,Validators.max(40), Validators.min(5)]],
     Clave: [''],
     asignatura: ['',Validators.required],
     asignaturaDos: [''],

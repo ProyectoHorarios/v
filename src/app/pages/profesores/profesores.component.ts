@@ -542,7 +542,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
               }else{
@@ -695,7 +695,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                       for (let c = 0; c < maestrosOrdenados.length; c++) {
                         this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                       }
-                      this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                      this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                         timeOut: 4000,
                       });
                   }else{
@@ -838,7 +838,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                       for (let c = 0; c < maestrosOrdenados.length; c++) {
                         this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                       }
-                      this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                      this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                         timeOut: 4000,
                       });
                   }else{
@@ -986,7 +986,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
               for (let c = 0; c < maestrosOrdenados.length; c++) {
                 this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
               }
-              this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+              this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                 timeOut: 4000,
               });
               }else{
@@ -1135,7 +1135,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -1259,7 +1259,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -1408,7 +1408,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
               for (let c = 0; c < maestrosOrdenados.length; c++) {
                 this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
               }
-              this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+              this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                 timeOut: 4000,
               });
               }else{
@@ -1551,7 +1551,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -1677,7 +1677,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -2170,7 +2170,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
               for (let c = 0; c < maestrosOrdenados.length; c++) {
                 this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
               }
-              this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+              this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                 timeOut: 4000,
               });
               }else{
@@ -2314,7 +2314,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                     setTimeout(function(){ location.reload(); }, 1000);
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -2448,7 +2448,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                     setTimeout(function(){ location.reload(); }, 1000);
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -2593,7 +2593,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                 setTimeout(function(){ location.reload(); }, 1000);
               }
 
-              this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+              this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                 timeOut: 4000,
               });
               }else{
@@ -2726,7 +2726,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                       setTimeout(function(){ location.reload(); }, 1000);
                     }
 
-                    this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                    this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                       timeOut: 4000,
                     });
                     }else{
@@ -2843,7 +2843,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                     setTimeout(function(){ location.reload(); }, 1000);
                   }
 
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -2975,7 +2975,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
               for (let c = 0; c < maestrosOrdenados.length; c++) {
                 this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
               }
-              this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+              this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                 timeOut: 4000,
               });
               }else{
@@ -3115,7 +3115,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                     setTimeout(function(){ location.reload(); }, 1000);
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -3239,7 +3239,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                     setTimeout(function(){ location.reload(); }, 1000);
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
                   }else{
@@ -3383,7 +3383,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
              for (let c = 0; c < maestrosOrdenados.length; c++) {
                this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
              }
-             this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+             this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                timeOut: 4000,
              });
          }else{
@@ -3511,7 +3511,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
               }else{
@@ -3630,7 +3630,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
               }else{
@@ -3751,7 +3751,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
                   for (let c = 0; c < maestrosOrdenados.length; c++) {
                     this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
                   }
-                  this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+                  this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                     timeOut: 4000,
                   });
               }else{
@@ -3877,7 +3877,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
              for (let c = 0; c < maestrosOrdenados.length; c++) {
                this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
              }
-             this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+             this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                timeOut: 4000,
              });
          }else{
@@ -3972,7 +3972,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
             for (let c = 0; c < maestrosOrdenados.length; c++) {
               this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
             }
-            this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+            this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
               timeOut: 4000,
             });
         }else{
@@ -4121,7 +4121,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
              for (let c = 0; c < maestrosOrdenados.length; c++) {
                this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
              }
-             this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+             this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
                timeOut: 4000,
              });
          }else{
@@ -4228,7 +4228,7 @@ export class ProfesoresComponent  implements AfterViewInit,OnInit  {
             for (let c = 0; c < maestrosOrdenados.length; c++) {
               this.cargarGrupos(maestrosOrdenados[c].id, incertar[c],datosst[c].se,datosst[c].tutoria)
             }
-            this.toastr.success(`Se cargaron los horarios de español`, 'Exito', {
+            this.toastr.success(`Se cargaron los horarios con exito!`, 'Exito', {
               timeOut: 4000,
             });
         }else{
